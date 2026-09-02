@@ -1,239 +1,175 @@
 'use client';
 
-import { useMemo, useState } from 'react';
 import Image from 'next/image';
+import { useMemo, useState } from 'react';
 import {
-  Bath,
-  BedDouble,
   Bell,
-  Building2,
-  CalendarDays,
+  BriefcaseBusiness,
   Check,
   ChevronDown,
+  CirclePlus,
   Heart,
-  House,
-  List,
+  Info,
   Map,
   MapPin,
+  MessageSquare,
   Search,
-  SlidersHorizontal,
-  Square,
-  X,
+  UserRound,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
 
-type Property = {
-  id: number;
-  image: string;
-  place: string;
+type Listing = {
+  id: string;
+  agency: string;
   address: string;
   title: string;
-  type: 'Leilighet' | 'Enebolig' | 'Rekkehus' | 'Hytte';
-  transaction: 'Til salgs' | 'Til leie';
-  bedrooms: number;
-  baths: number;
+  image: string;
+  href: string;
   area: number;
   price: number;
-  monthly?: boolean;
-  tag?: string;
-  x: number;
-  y: number;
+  totalPrice: number;
+  ownership: string;
+  type: 'Leilighet' | 'Enebolig';
+  bedrooms: number;
+  viewing: string;
+  promoted?: boolean;
 };
 
-const properties: Property[] = [
-  { id: 1, image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=86', place: 'Nordstrand, Oslo', address: 'Solveien 112', title: 'Lys enebolig med fjordutsikt og solrik hage', type: 'Enebolig', transaction: 'Til salgs', bedrooms: 4, baths: 2, area: 184, price: 12490000, tag: 'Ny i dag', x: 61, y: 58 },
-  { id: 2, image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=86', place: 'Frogner, Oslo', address: 'Elisenbergveien 18B', title: 'Klassisk hjørneleilighet med vestvendt balkong', type: 'Leilighet', transaction: 'Til salgs', bedrooms: 3, baths: 1, area: 121, price: 10950000, tag: 'Visning søndag', x: 46, y: 43 },
-  { id: 3, image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=86', place: 'Sandviken, Bergen', address: 'Amalie Skrams vei 7', title: 'Moderne familiebolig med nærhet til sjøen', type: 'Rekkehus', transaction: 'Til salgs', bedrooms: 3, baths: 2, area: 146, price: 8790000, x: 22, y: 48 },
-  { id: 4, image: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=1200&q=86', place: 'Byåsen, Trondheim', address: 'Stavnevegen 42', title: 'Arkitekttegnet enebolig med panoramautsikt', type: 'Enebolig', transaction: 'Til salgs', bedrooms: 5, baths: 2, area: 226, price: 11200000, tag: 'Prisjustert', x: 57, y: 22 },
-  { id: 5, image: 'https://images.unsplash.com/photo-1600607688969-a5bfcd646154?auto=format&fit=crop&w=1200&q=86', place: 'Grünerløkka, Oslo', address: 'Sofienberggata 31', title: 'Gjennomført toppleilighet med takterrasse', type: 'Leilighet', transaction: 'Til salgs', bedrooms: 2, baths: 1, area: 78, price: 7450000, x: 50, y: 40 },
-  { id: 6, image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1200&q=86', place: 'Høvik, Bærum', address: 'Strandveien 64C', title: 'Innholdsrikt rekkehus i rolig, familievennlig tun', type: 'Rekkehus', transaction: 'Til salgs', bedrooms: 3, baths: 2, area: 139, price: 9250000, x: 38, y: 52 },
-  { id: 7, image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=86', place: 'Tromsøya, Tromsø', address: 'Storgata 88', title: 'Nyere leilighet med utsikt mot sundet', type: 'Leilighet', transaction: 'Til leie', bedrooms: 2, baths: 1, area: 67, price: 21500, monthly: true, tag: 'Ledig nå', x: 66, y: 11 },
-  { id: 8, image: 'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=1200&q=86', place: 'Majorstuen, Oslo', address: 'Sørkedalsveien 9', title: 'Lun og moderne 3-roms nær alt', type: 'Leilighet', transaction: 'Til leie', bedrooms: 2, baths: 1, area: 72, price: 24800, monthly: true, x: 43, y: 39 },
-  { id: 9, image: 'https://images.unsplash.com/photo-1600585152915-d208bec867a1?auto=format&fit=crop&w=1200&q=86', place: 'Kragerø, Telemark', address: 'Skåtøyveien 203', title: 'Sjøhytte med brygge og utsikt mot skjærgården', type: 'Hytte', transaction: 'Til salgs', bedrooms: 3, baths: 1, area: 94, price: 6890000, tag: 'Sjelden mulighet', x: 49, y: 68 },
+const listings: Listing[] = [
+  { id: '473995301', agency: 'EiendomsMegler 1 Sandefjord', address: 'Kolstadveien 16, Andebu', title: 'HØYJORD - Innholdsrik enebolig med 4 soverom, svømmebasseng og stor tomt | Flere terrasser og god utsikt | Integrert garasje', image: 'https://images.finncdn.no/dynamic/480w/2026/9/vertical-2/01/1/473/995/301_86e79f20-e7d4-47bc-af81-fb88a9094d51.jpg', href: 'https://www.finn.no/realestate/homes/ad.html?finnkode=473995301', area: 255, price: 4500000, totalPrice: 4613590, ownership: 'Selveier', type: 'Enebolig', bedrooms: 4, viewing: 'Visning - 8. sep. kl. 17:00', promoted: true },
+  { id: '475386892', agency: 'Raadhuset Eiendomsmegling', address: 'Kveim 110, Gjerstad', title: 'Øvre Gjerstad - Storslått eiendom med fantastisk utsikt over Gjerstadvatnet - Strandlinje - Stor tomt med tilhørende skog', image: 'https://images.finncdn.no/dynamic/480w/2026/9/vertical-2/02/2/475/386/892_4e337bf9-6ebe-4d54-913e-b240cec19a90.jpg', href: 'https://www.finn.no/realestate/homes/ad.html?finnkode=475386892', area: 308, price: 6490000, totalPrice: 6653600, ownership: 'Selveier', type: 'Enebolig', bedrooms: 6, viewing: 'Visning - 19. sep. kl. 16:00' },
+  { id: '457284188', agency: 'Proaktiv Eiendomsmegling Trondheim Øst', address: 'Midtre Tunhøgda 4, Charlottenlund', title: 'CHARLOTTENLUND - Lys og romslig 2-roms leilighet i høy 1. etasje. Vestvendt balkong med ettermiddags- og kveldssol. Parkering.', image: 'https://images.finncdn.no/dynamic/480w/2026/7/vertical-2/06/8/457/284/188_f12b8d86-d981-4b94-ae9a-5e4b06c91f41.jpg', href: 'https://www.finn.no/realestate/homes/ad.html?finnkode=457284188', area: 43, price: 2290000, totalPrice: 2816589, ownership: 'Andel', type: 'Leilighet', bedrooms: 1, viewing: 'Visning - 14. sep. kl. 16:30' },
+  { id: '475375272', agency: 'DNB Eiendom AS', address: 'Nordbyhagen 15, Vestby', title: 'VESTBY SENTRUM - Sentral 3-roms eierleilighet | Stor, solrik & delvis overbygd terrasse | Inngjerdet terrasse & hageflekk | Gasspeis', image: 'https://images.finncdn.no/dynamic/480w/2026/9/vertical-2/02/2/475/375/272_c80d2868-e19b-4415-9ba6-aa3c841479da.jpg', href: 'https://www.finn.no/realestate/homes/ad.html?finnkode=475375272', area: 69, price: 3900000, totalPrice: 4038959, ownership: 'Selveier', type: 'Leilighet', bedrooms: 2, viewing: 'Visning - 6. sep. kl. 12:00' },
+  { id: '474565040', agency: 'Nordvik Sunnhordland', address: 'Ramsdalen 26, Rubbestadneset', title: 'Rubbestadneset - Klassisk og moderne enebolig med flott uteområde, i populært og barnevennlig område', image: 'https://images.finncdn.no/dynamic/480w/2026/8/vertical-2/25/0/474/565/040_cc9d0025-f736-4ebd-b0a7-b666d93be044.jpg', href: 'https://www.finn.no/realestate/homes/ad.html?finnkode=474565040', area: 170, price: 5390000, totalPrice: 5525840, ownership: 'Selveier', type: 'Enebolig', bedrooms: 4, viewing: 'Visning - 14. sep. kl. 16:00' },
+  { id: '475386368', agency: 'Exbo Sørlandet AS', address: 'Speiderveien 35B, Grimstad', title: 'Grimstad - Innholdsrik 4-roms leilighet over 2 plan med sjøutsikt, stor veranda, garasje og gode solforhold.', image: 'https://images.finncdn.no/dynamic/480w/2026/9/vertical-2/02/8/475/386/368_738ca4bb-7d38-4828-a1a8-435a671a93c8.jpg', href: 'https://www.finn.no/realestate/homes/ad.html?finnkode=475386368', area: 123, price: 3690000, totalPrice: 3793540, ownership: 'Selveier', type: 'Leilighet', bedrooms: 3, viewing: 'Visning - 10. sep. kl. 16:00' },
 ];
 
-const formatPrice = (property: Property) =>
-  `${new Intl.NumberFormat('nb-NO').format(property.price)} kr${property.monthly ? ' / mnd.' : ''}`;
+const money = (value: number) => `${new Intl.NumberFormat('nb-NO').format(value)} kr`;
 
 export default function Home() {
   const [query, setQuery] = useState('');
-  const [transaction, setTransaction] = useState<'Til salgs' | 'Til leie'>('Til salgs');
-  const [type, setType] = useState('Alle boligtyper');
+  const [favorites, setFavorites] = useState<Set<string>>(new Set());
+  const [newToday, setNewToday] = useState(false);
+  const [types, setTypes] = useState<Set<string>>(new Set());
   const [bedrooms, setBedrooms] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
-  const [sort, setSort] = useState('Anbefalt');
-  const [view, setView] = useState<'list' | 'map'>('list');
-  const [filtersOpen, setFiltersOpen] = useState(false);
-  const [favoriteOnly, setFavoriteOnly] = useState(false);
-  const [favorites, setFavorites] = useState<Set<number>>(new Set());
-  const [selected, setSelected] = useState<Property | null>(null);
-  const [savedSearch, setSavedSearch] = useState(false);
+  const [sort, setSort] = useState('Publisert');
 
-  const filtered = useMemo(() => {
-    const normalized = query.toLocaleLowerCase('nb-NO').trim();
-    const result = properties.filter((property) => {
-      const searchable = `${property.place} ${property.address} ${property.title}`.toLocaleLowerCase('nb-NO');
-      return property.transaction === transaction &&
-        (!normalized || searchable.includes(normalized)) &&
-        (type === 'Alle boligtyper' || property.type === type) &&
-        (!bedrooms || property.bedrooms >= bedrooms) &&
-        (!maxPrice || property.price <= maxPrice) &&
-        (!favoriteOnly || favorites.has(property.id));
-    });
+  const visible = useMemo(() => {
+    const needle = query.trim().toLocaleLowerCase('nb-NO');
+    const result = listings.filter((listing) =>
+      (!needle || `${listing.title} ${listing.address}`.toLocaleLowerCase('nb-NO').includes(needle)) &&
+      (!types.size || types.has(listing.type)) &&
+      (!bedrooms || listing.bedrooms >= bedrooms),
+    );
     return [...result].sort((a, b) => {
-      if (sort === 'Lavest pris') return a.price - b.price;
-      if (sort === 'Høyest pris') return b.price - a.price;
-      if (sort === 'Størst areal') return b.area - a.area;
-      return a.id - b.id;
+      if (sort === 'Prisant lav-høy') return a.price - b.price;
+      if (sort === 'Prisant høy-lav') return b.price - a.price;
+      if (sort === 'Areal høy-lav') return b.area - a.area;
+      return 0;
     });
-  }, [bedrooms, favoriteOnly, favorites, maxPrice, query, sort, transaction, type]);
+  }, [bedrooms, query, sort, types]);
 
-  const estimatedCount = filtered.length ? filtered.length * 183 : 0;
-  const toggleFavorite = (id: number) => {
-    setFavorites((current) => {
-      const next = new Set(current);
-      if (next.has(id)) next.delete(id); else next.add(id);
-      return next;
-    });
+  const toggleType = (type: string) => setTypes((current) => {
+    const next = new Set(current);
+    if (next.has(type)) next.delete(type); else next.add(type);
+    return next;
+  });
+
+  const openLiveSearch: NonNullable<React.ComponentProps<'form'>['onSubmit']> = (event) => {
+    event.preventDefault();
+    const params = new URLSearchParams();
+    if (query.trim()) params.set('q', query.trim());
+    window.open(`https://www.finn.no/realestate/homes/search.html${params.size ? `?${params}` : ''}`, '_blank', 'noopener,noreferrer');
   };
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-40 border-b border-border bg-white/95 backdrop-blur-xl">
-        <div className="mx-auto flex h-[72px] max-w-[1500px] items-center justify-between px-4 sm:px-6 lg:px-9">
-          <button onClick={() => { setQuery(''); setFavoriteOnly(false); }} className="flex items-center gap-2.5 text-xl font-bold tracking-[-0.03em]">
-            <span className="grid size-10 place-items-center rounded-[13px] bg-primary text-primary-foreground shadow-sm"><Building2 size={21} strokeWidth={2.4} /></span>
-            Hjemly
-          </button>
-          <nav className="flex items-center gap-1 text-sm font-semibold sm:gap-2">
-            <Button variant="ghost" size="lg" className="hidden rounded-full px-4 sm:flex" onClick={() => setSavedSearch(true)}><Bell /> Lagrede søk</Button>
-            <Button variant={favoriteOnly ? 'secondary' : 'ghost'} size="lg" className="rounded-full px-3 sm:px-4" onClick={() => setFavoriteOnly((value) => !value)}>
-              <Heart className={favoriteOnly ? 'fill-current text-rose-500' : ''} />
-              <span className="hidden sm:inline">Favoritter</span>{favorites.size > 0 && <span className="rounded-full bg-foreground px-1.5 text-[11px] text-background">{favorites.size}</span>}
-            </Button>
+    <div className="min-h-screen bg-white text-[#27272a]">
+      <header className="border-b border-[#e5e7eb] bg-white">
+        <div className="topbar">
+          <a href="#main" className="brand" aria-label="Hjemly forside"><span className="brand-shape" /><span className="brand-word">HJEM</span></a>
+          <nav className="topnav" aria-label="Hovedmeny">
+            <a href="https://www.finn.no/bedriftskunde" target="_blank" rel="noreferrer"><BriefcaseBusiness /> <span>For bedrifter</span></a>
+            <button><Bell /><span>Varslinger</span></button>
+            <button><CirclePlus /><span>Ny annonse</span></button>
+            <button><MessageSquare /><span>Meldinger</span></button>
+            <button><UserRound /><span>Min Hjemly</span></button>
           </nav>
         </div>
       </header>
 
-      <section className="border-b border-border bg-white">
-        <div className="mx-auto max-w-[1500px] px-4 py-6 sm:px-6 lg:px-9 lg:py-8">
-          <div className="mb-5 flex gap-1 rounded-full bg-muted p-1 sm:w-fit">
-            {(['Til salgs', 'Til leie'] as const).map((option) => (
-              <button key={option} onClick={() => { setTransaction(option); setMaxPrice(0); }} className={`flex-1 rounded-full px-5 py-2 text-sm font-semibold transition sm:flex-none ${transaction === option ? 'bg-white text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}>{option}</button>
+      <main id="main" className="search-shell">
+        <aside className="filters" aria-label="Filtre">
+          <nav className="breadcrumbs" aria-label="Her er du"><span className="crumb-link">HJEM</span><span>/</span><span className="crumb-link">Eiendom</span><span>/</span><span>Bolig til salgs</span></nav>
+          <button className="save-search"><Bell size={17} /> Lagre søk</button>
+
+          <FilterSection title="Søk i Eiendom">
+            <form onSubmit={openLiveSearch} className="search-field"><input value={query} onChange={(event) => setQuery(event.target.value)} aria-label="Søk i Eiendom" /><button aria-label="Søk live på FINN"><Search /></button></form>
+          </FilterSection>
+
+          <FilterSection title="Publisert">
+            <CheckLine checked={newToday} onChange={setNewToday} label="Nye i dag" count="1 270" />
+          </FilterSection>
+
+          <FilterSection title="Område i kart">
+            <div className="search-field muted"><input placeholder="Hvor vil du bo?" aria-label="Hvor vil du bo?" /><button aria-label="Søk område"><Search /></button></div>
+            <div className="mini-map"><div className="mini-map-water" /><span>ISLANDS</span><div className="map-actions"><button>Tegn</button><button>Radius</button></div><MapPin className="map-location" /></div>
+          </FilterSection>
+
+          <FilterSection title="Område">
+            {['Agder|2 310', 'Akershus|7 267', 'Buskerud|2 269', 'Innlandet|2 897', 'Oslo|5 443', 'Vestland|3 063'].map((item) => { const [label, count] = item.split('|'); return <CheckLine key={label} checked={false} onChange={() => undefined} label={label} count={count} />; })}
+            <button className="show-all">Vis alle</button>
+          </FilterSection>
+
+          <FilterSection title="Antall soverom">
+            <div className="radio-row">{[0, 1, 2, 3, 4].map((value) => <button key={value} onClick={() => setBedrooms(value)} className={bedrooms === value ? 'selected' : ''}>{value ? `${value}+` : 'Alle'}</button>)}</div>
+          </FilterSection>
+
+          <FilterSection title="Boligtype">
+            <CheckLine checked={types.has('Leilighet')} onChange={() => toggleType('Leilighet')} label="Leilighet" count="25 685" />
+            <CheckLine checked={types.has('Enebolig')} onChange={() => toggleType('Enebolig')} label="Enebolig" count="9 572" />
+          </FilterSection>
+        </aside>
+
+        <section className="results" aria-labelledby="results-title">
+          <div className="results-top">
+            <div><p className="eyebrow">Bolig til salgs</p><h1 id="results-title"><strong>41 048</strong> treff i <strong>26 789</strong> annonser</h1></div>
+            <div className="result-actions"><button className="map-button"><Map /> Vis på kart</button><label>Sorter på<select value={sort} onChange={(event) => setSort(event.target.value)}><option>Publisert</option><option>Prisant lav-høy</option><option>Prisant høy-lav</option><option>Areal høy-lav</option></select><ChevronDown /></label></div>
+          </div>
+
+          <div className="source-note"><Info /><p><strong>Ekte annonser, kontrollert 2. september 2026.</strong> Utvalget under lenker til originalannonsene. <a href="https://www.finn.no/realestate/homes/search.html" target="_blank" rel="noreferrer">Åpne alle live treff på FINN</a>.</p></div>
+          <a className="sorting-help" href="https://www.finn.no/realestate/homes/search.html" target="_blank" rel="noreferrer"><Info /> Slik sorteres søkeresultatene</a>
+
+          <div className="listing-stack">
+            {visible.map((listing) => (
+              <article className="listing-card" key={listing.id}>
+                <div className="listing-media">
+                  <a href={listing.href} target="_blank" rel="noreferrer" aria-label={`Åpne ${listing.title} på FINN`}><Image src={listing.image} alt={listing.title} fill sizes="(max-width: 760px) 100vw, 616px" className="object-cover" /></a>
+                  {listing.promoted && <span className="promoted">Ukens bolig</span>}
+                  <button className="card-heart" aria-label="Legg til som favoritt" onClick={() => setFavorites((current) => { const next = new Set(current); if (next.has(listing.id)) next.delete(listing.id); else next.add(listing.id); return next; })}><Heart className={favorites.has(listing.id) ? 'fill-white' : ''} /></button>
+                  <span className="image-dots">● <i>● ● ●</i></span>
+                </div>
+                <div className="listing-body">
+                  <div className="listing-meta"><span>{listing.agency}</span><span>{listing.address}</span></div>
+                  <h2><a href={listing.href} target="_blank" rel="noreferrer">{listing.title}</a></h2>
+                  <div className="price-line"><strong>{listing.area} m²</strong><strong>{money(listing.price)}</strong></div>
+                  <div className="facts">Totalpris: {money(listing.totalPrice)} ∙ {listing.ownership} ∙ {listing.type} ∙ {listing.bedrooms} soverom</div>
+                  <div className="viewing-row"><span>{listing.viewing}</span><a href={listing.href} target="_blank" rel="noreferrer">Se annonsen ↗</a></div>
+                </div>
+              </article>
             ))}
           </div>
-          <div className="flex flex-col gap-3 lg:flex-row">
-            <label className="flex h-14 flex-1 items-center gap-3 rounded-2xl border border-input bg-white px-4 shadow-sm focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15 lg:max-w-2xl">
-              <Search size={20} className="text-muted-foreground" />
-              <Input value={query} onChange={(event) => setQuery(event.target.value)} aria-label="Søk etter sted eller adresse" placeholder="Sted, adresse eller postnummer" className="h-auto border-0 p-0 text-base shadow-none focus-visible:ring-0" />
-              {query && <button aria-label="Tøm søk" onClick={() => setQuery('')}><X size={18} /></button>}
-            </label>
-            <div className="grid grid-cols-2 gap-3 sm:flex">
-              <label className="filter-select"><House size={17} /><select aria-label="Boligtype" value={type} onChange={(event) => setType(event.target.value)}><option>Alle boligtyper</option><option>Leilighet</option><option>Enebolig</option><option>Rekkehus</option><option>Hytte</option></select><ChevronDown size={15} /></label>
-              <label className="filter-select"><BedDouble size={17} /><select aria-label="Minimum antall soverom" value={bedrooms} onChange={(event) => setBedrooms(Number(event.target.value))}><option value="0">Soverom</option><option value="1">1+ soverom</option><option value="2">2+ soverom</option><option value="3">3+ soverom</option><option value="4">4+ soverom</option></select><ChevronDown size={15} /></label>
-              <Button variant="outline" size="lg" className={`h-14 rounded-2xl px-5 ${filtersOpen ? 'border-primary bg-primary/5 text-primary' : ''}`} onClick={() => setFiltersOpen((value) => !value)}><SlidersHorizontal /> Flere filtre</Button>
-              <Button size="lg" className="h-14 rounded-2xl px-6" onClick={() => setView('list')}>Vis {new Intl.NumberFormat('nb-NO').format(estimatedCount)}</Button>
-            </div>
-          </div>
 
-          {filtersOpen && (
-            <div className="mt-4 grid gap-4 rounded-2xl border border-border bg-background p-4 shadow-sm sm:grid-cols-[1fr_1fr_auto] sm:items-end">
-              <label className="space-y-2 text-sm font-semibold">Makspris
-                <select className="advanced-select" value={maxPrice} onChange={(event) => setMaxPrice(Number(event.target.value))}>
-                  <option value="0">Ingen makspris</option>
-                  {transaction === 'Til salgs' ? <><option value="7000000">7 000 000 kr</option><option value="9000000">9 000 000 kr</option><option value="11000000">11 000 000 kr</option><option value="13000000">13 000 000 kr</option></> : <><option value="22000">22 000 kr / mnd.</option><option value="25000">25 000 kr / mnd.</option></>}
-                </select>
-              </label>
-              <div className="space-y-2"><p className="text-sm font-semibold">Kvaliteter</p><div className="flex gap-2"><span className="filter-chip"><Check size={14} /> Balkong</span><span className="filter-chip">Parkering</span><span className="filter-chip">Heis</span></div></div>
-              <Button variant="ghost" className="h-11 rounded-xl" onClick={() => { setType('Alle boligtyper'); setBedrooms(0); setMaxPrice(0); }}>Nullstill</Button>
-            </div>
-          )}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1500px] px-4 py-6 sm:px-6 lg:px-9">
-        <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2"><h1 className="text-2xl font-bold tracking-[-0.03em]">{favoriteOnly ? 'Dine favoritter' : `Boliger ${transaction.toLocaleLowerCase('nb-NO')}`}</h1>{query && <span className="rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">{query}</span>}</div>
-            <p className="mt-1 text-sm text-muted-foreground">{new Intl.NumberFormat('nb-NO').format(estimatedCount)} treff · oppdatert akkurat nå</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <label className="sort-select"><span className="hidden sm:inline">Sorter:</span><select aria-label="Sorter boliger" value={sort} onChange={(event) => setSort(event.target.value)}><option>Anbefalt</option><option>Lavest pris</option><option>Høyest pris</option><option>Størst areal</option></select><ChevronDown size={14} /></label>
-            <div className="flex rounded-xl border border-input bg-white p-1 shadow-sm">
-              <button aria-label="Listevisning" onClick={() => setView('list')} className={`view-button ${view === 'list' ? 'active' : ''}`}><List size={17} /><span className="hidden sm:inline">Liste</span></button>
-              <button aria-label="Kartvisning" onClick={() => setView('map')} className={`view-button ${view === 'map' ? 'active' : ''}`}><Map size={17} /><span className="hidden sm:inline">Kart</span></button>
-            </div>
-          </div>
-        </div>
-
-        {filtered.length === 0 ? (
-          <div className="grid min-h-[420px] place-items-center rounded-3xl border border-dashed border-input bg-white p-8 text-center">
-            <div><span className="mx-auto grid size-14 place-items-center rounded-full bg-muted"><Search /></span><h2 className="mt-4 text-xl font-bold">Ingen boliger passer filtrene</h2><p className="mt-2 text-sm text-muted-foreground">Prøv et annet sted eller fjern ett av filtrene.</p><Button className="mt-5 rounded-xl" onClick={() => { setQuery(''); setType('Alle boligtyper'); setBedrooms(0); setMaxPrice(0); setFavoriteOnly(false); }}>Vis alle boliger</Button></div>
-          </div>
-        ) : view === 'map' ? (
-          <div className="map-layout">
-            <div className="map-canvas" aria-label="Forenklet kart over boligtreff">
-              <div className="map-water" />
-              <span className="map-label" style={{ left: '43%', top: '45%' }}>Oslo</span>
-              <span className="map-label" style={{ left: '18%', top: '51%' }}>Bergen</span>
-              {filtered.map((property) => <button key={property.id} onClick={() => setSelected(property)} className="map-pin" style={{ left: `${property.x}%`, top: `${property.y}%` }}>{property.monthly ? `${Math.round(property.price / 1000)}k` : `${(property.price / 1000000).toFixed(1).replace('.', ',')} mill.`}</button>)}
-              <div className="absolute bottom-4 left-4 rounded-xl bg-white/95 px-3 py-2 text-xs font-semibold shadow-lg">Demokart · boligene er illustrerende</div>
-            </div>
-            <div className="space-y-3 overflow-auto lg:max-h-[660px]">
-              {filtered.map((property) => <PropertyRow key={property.id} property={property} favorite={favorites.has(property.id)} onFavorite={toggleFavorite} onSelect={setSelected} />)}
-            </div>
-          </div>
-        ) : (
-          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {filtered.map((property) => <PropertyCard key={property.id} property={property} favorite={favorites.has(property.id)} onFavorite={toggleFavorite} onSelect={setSelected} />)}
-          </div>
-        )}
-
-        {filtered.length > 0 && <div className="mt-10 flex justify-center"><Button variant="outline" size="lg" className="h-12 rounded-full bg-white px-7">Vis flere boliger</Button></div>}
-      </section>
-
-      <footer className="mt-10 border-t border-border bg-white"><div className="mx-auto flex max-w-[1500px] flex-col justify-between gap-4 px-6 py-8 text-sm text-muted-foreground sm:flex-row lg:px-9"><p><strong className="text-foreground">Hjemly</strong> · En selvstendig demo av en moderne boligportal.</p><p>Demodata · Bilder fra Unsplash · Ikke tilknyttet FINN.no</p></div></footer>
-
-      {savedSearch && <div className="fixed bottom-5 left-1/2 z-50 flex -translate-x-1/2 items-center gap-3 rounded-2xl bg-foreground px-5 py-3.5 text-sm font-semibold text-background shadow-2xl"><span className="grid size-7 place-items-center rounded-full bg-primary text-white"><Check size={16} /></span>Søket er lagret<button aria-label="Lukk" onClick={() => setSavedSearch(false)}><X size={17} /></button></div>}
-
-      <Dialog open={Boolean(selected)} onOpenChange={(open) => !open && setSelected(null)}>
-        {selected && <DialogContent className="max-h-[92vh] max-w-4xl gap-0 overflow-y-auto rounded-3xl p-0" showCloseButton>
-          <div className="relative aspect-[16/8] overflow-hidden rounded-t-3xl bg-muted"><Image src={selected.image} alt={selected.title} fill sizes="(max-width: 896px) 100vw, 896px" className="object-cover" /><span className="absolute bottom-4 left-4 rounded-full bg-white/95 px-3 py-1.5 text-xs font-bold shadow">{selected.transaction}</span></div>
-          <div className="p-6 sm:p-8">
-            <DialogHeader>
-              <p className="font-semibold text-primary">{selected.place}</p>
-              <DialogTitle className="text-2xl font-bold leading-tight sm:text-3xl">{selected.title}</DialogTitle>
-              <DialogDescription className="flex items-center gap-2 text-base"><MapPin size={17} /> {selected.address}</DialogDescription>
-            </DialogHeader>
-            <div className="my-6 grid grid-cols-3 gap-3"><Fact icon={<BedDouble />} label={`${selected.bedrooms} soverom`} /><Fact icon={<Bath />} label={`${selected.baths} bad`} /><Fact icon={<Square />} label={`${selected.area} m²`} /></div>
-            <div className="rounded-2xl bg-background p-5"><p className="text-sm text-muted-foreground">Prisantydning</p><p className="mt-1 text-3xl font-bold tracking-tight">{formatPrice(selected)}</p>{!selected.monthly && <p className="mt-2 text-sm text-muted-foreground">Omkostninger og eventuell fellesgjeld kommer i tillegg.</p>}</div>
-            <div className="mt-6 grid gap-3 sm:grid-cols-2"><Button size="lg" className="h-12 rounded-xl" onClick={() => setSavedSearch(true)}><CalendarDays /> Be om visning</Button><Button variant="outline" size="lg" className="h-12 rounded-xl" onClick={() => toggleFavorite(selected.id)}><Heart className={favorites.has(selected.id) ? 'fill-current text-rose-500' : ''} /> {favorites.has(selected.id) ? 'Lagret som favoritt' : 'Lagre som favoritt'}</Button></div>
-          </div>
-        </DialogContent>}
-      </Dialog>
-    </main>
+          {visible.length === 0 && <div className="empty-state"><Search /><h2>Ingen annonser i dette utvalget</h2><p>Fjern et filter, eller søk i hele den levende katalogen.</p><button onClick={() => { setQuery(''); setTypes(new Set()); setBedrooms(0); }}>Nullstill filtre</button></div>}
+          <a className="live-cta" href="https://www.finn.no/realestate/homes/search.html" target="_blank" rel="noreferrer">Vis alle oppdaterte boligannonser <span>↗</span></a>
+        </section>
+      </main>
+    </div>
   );
 }
 
-function PropertyCard({ property, favorite, onFavorite, onSelect }: { property: Property; favorite: boolean; onFavorite: (id: number) => void; onSelect: (property: Property) => void }) {
-  return <article className="property-card group">
-    <div className="relative aspect-[4/3] overflow-hidden bg-muted"><Image src={property.image} alt={property.title} fill sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw" className="object-cover transition duration-500 group-hover:scale-[1.025]" />{property.tag && <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1.5 text-xs font-bold shadow-sm">{property.tag}</span>}<button aria-label={`${favorite ? 'Fjern' : 'Lagre'} ${property.title}`} onClick={() => onFavorite(property.id)} className="favorite-button"><Heart className={favorite ? 'fill-rose-500 text-rose-500' : ''} size={21} /></button></div>
-    <div className="p-5"><p className="text-sm font-semibold text-primary">{property.place}</p><button onClick={() => onSelect(property)} className="mt-1.5 block text-left text-lg font-bold leading-snug hover:underline">{property.title}</button><p className="mt-1 text-sm text-muted-foreground">{property.address}</p><div className="mt-4 flex gap-4 text-sm text-muted-foreground"><span className="flex items-center gap-1.5"><BedDouble size={16} /> {property.bedrooms}</span><span className="flex items-center gap-1.5"><Square size={15} /> {property.area} m²</span><span>{property.type}</span></div><p className="mt-4 text-xl font-bold tracking-tight">{formatPrice(property)}</p></div>
-  </article>;
+function FilterSection({ title, children }: { title: string; children: React.ReactNode }) {
+  return <section className="filter-section"><h2>{title}</h2>{children}</section>;
 }
 
-function PropertyRow({ property, favorite, onFavorite, onSelect }: { property: Property; favorite: boolean; onFavorite: (id: number) => void; onSelect: (property: Property) => void }) {
-  return <article className="flex gap-3 rounded-2xl border border-border bg-white p-3 shadow-sm"><Image src={property.image} alt="" width={128} height={112} className="h-28 w-32 rounded-xl object-cover" /><div className="min-w-0 flex-1"><p className="text-xs font-semibold text-primary">{property.place}</p><button onClick={() => onSelect(property)} className="mt-1 line-clamp-2 text-left font-bold leading-snug hover:underline">{property.title}</button><p className="mt-2 text-sm font-bold">{formatPrice(property)}</p></div><button onClick={() => onFavorite(property.id)} aria-label="Lagre bolig" className="self-start p-2"><Heart size={18} className={favorite ? 'fill-rose-500 text-rose-500' : ''} /></button></article>;
-}
-
-function Fact({ icon, label }: { icon: React.ReactNode; label: string }) {
-  return <div className="flex flex-col items-center gap-2 rounded-2xl border border-border bg-white p-4 text-center text-sm font-semibold [&_svg]:size-5 [&_svg]:text-primary">{icon}{label}</div>;
+function CheckLine({ checked, onChange, label, count }: { checked: boolean; onChange: (value: boolean) => void; label: string; count: string }) {
+  return <label className="check-line"><input type="checkbox" checked={checked} onChange={(event) => onChange(event.target.checked)} /><span className="fake-check">{checked && <Check />}</span><span>{label}</span><span className="count">({count})</span></label>;
 }
