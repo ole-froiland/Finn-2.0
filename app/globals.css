@@ -27,11 +27,15 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .search-field input { min-width: 0; flex: 1; height: 100%; border: 0; outline: 0; padding: 0 10px; font-size: 14px; }
 .search-field button { width: 46px; height: 100%; border: 0; background: white; display: grid; place-items: center; cursor: pointer; }
 .search-field svg { width: 19px; }
+.location-field { margin-bottom: 8px; }
+.location-field > span { width: 46px; height: 100%; display: grid; place-items: center; }
 .check-line { min-height: 30px; display: flex; align-items: center; gap: 9px; font-size: 14px; cursor: pointer; }
 .check-line input { position: absolute; opacity: 0; pointer-events: none; }
 .fake-check { width: 21px; height: 21px; flex: 0 0 21px; border: 1px solid #b6b7ba; background: white; display: grid; place-items: center; }
 .fake-check svg { width: 15px; height: 15px; }
 .check-line .count { color: #76777b; margin-left: 2px; }
+.county-list { margin-top: 4px; }
+.show-all { border: 0; background: transparent; color: var(--blue); font-size: 13px; padding: 7px 0 0 30px; cursor: pointer; }
 .radio-row { display: flex; gap: 6px; }
 .radio-row button { height: 34px; min-width: 43px; border: 1px solid #c7c8ca; background: white; border-radius: 4px; cursor: pointer; font-size: 13px; }
 .radio-row button.selected { border-color: var(--blue); box-shadow: inset 0 0 0 1px var(--blue); color: var(--blue); font-weight: 700; }
