@@ -3,18 +3,11 @@
 import Image from 'next/image';
 import { useMemo, useState } from 'react';
 import {
-  Bell,
-  BriefcaseBusiness,
   Check,
   ChevronDown,
-  CirclePlus,
   Heart,
   Info,
-  Map,
-  MapPin,
-  MessageSquare,
   Search,
-  UserRound,
 } from 'lucide-react';
 
 type Listing = {
@@ -48,7 +41,6 @@ const money = (value: number) => `${new Intl.NumberFormat('nb-NO').format(value)
 export default function Home() {
   const [query, setQuery] = useState('');
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
-  const [newToday, setNewToday] = useState(false);
   const [types, setTypes] = useState<Set<string>>(new Set());
   const [bedrooms, setBedrooms] = useState(0);
   const [sort, setSort] = useState('Publisert');
@@ -86,37 +78,13 @@ export default function Home() {
       <header className="border-b border-[#e5e7eb] bg-white">
         <div className="topbar">
           <a href="#main" className="brand" aria-label="Hjemly forside"><span className="brand-shape" /><span className="brand-word">HJEM</span></a>
-          <nav className="topnav" aria-label="Hovedmeny">
-            <a href="https://www.finn.no/bedriftskunde" target="_blank" rel="noreferrer"><BriefcaseBusiness /> <span>For bedrifter</span></a>
-            <button><Bell /><span>Varslinger</span></button>
-            <button><CirclePlus /><span>Ny annonse</span></button>
-            <button><MessageSquare /><span>Meldinger</span></button>
-            <button><UserRound /><span>Min Hjemly</span></button>
-          </nav>
         </div>
       </header>
 
       <main id="main" className="search-shell">
         <aside className="filters" aria-label="Filtre">
-          <nav className="breadcrumbs" aria-label="Her er du"><span className="crumb-link">HJEM</span><span>/</span><span className="crumb-link">Eiendom</span><span>/</span><span>Bolig til salgs</span></nav>
-          <button className="save-search"><Bell size={17} /> Lagre søk</button>
-
           <FilterSection title="Søk i Eiendom">
             <form onSubmit={openLiveSearch} className="search-field"><input value={query} onChange={(event) => setQuery(event.target.value)} aria-label="Søk i Eiendom" /><button aria-label="Søk live på FINN"><Search /></button></form>
-          </FilterSection>
-
-          <FilterSection title="Publisert">
-            <CheckLine checked={newToday} onChange={setNewToday} label="Nye i dag" count="1 270" />
-          </FilterSection>
-
-          <FilterSection title="Område i kart">
-            <div className="search-field muted"><input placeholder="Hvor vil du bo?" aria-label="Hvor vil du bo?" /><button aria-label="Søk område"><Search /></button></div>
-            <div className="mini-map"><div className="mini-map-water" /><span>ISLANDS</span><div className="map-actions"><button>Tegn</button><button>Radius</button></div><MapPin className="map-location" /></div>
-          </FilterSection>
-
-          <FilterSection title="Område">
-            {['Agder|2 310', 'Akershus|7 267', 'Buskerud|2 269', 'Innlandet|2 897', 'Oslo|5 443', 'Vestland|3 063'].map((item) => { const [label, count] = item.split('|'); return <CheckLine key={label} checked={false} onChange={() => undefined} label={label} count={count} />; })}
-            <button className="show-all">Vis alle</button>
           </FilterSection>
 
           <FilterSection title="Antall soverom">
@@ -131,12 +99,11 @@ export default function Home() {
 
         <section className="results" aria-labelledby="results-title">
           <div className="results-top">
-            <div><p className="eyebrow">Bolig til salgs</p><h1 id="results-title"><strong>41 048</strong> treff i <strong>26 789</strong> annonser</h1></div>
-            <div className="result-actions"><button className="map-button"><Map /> Vis på kart</button><label>Sorter på<select value={sort} onChange={(event) => setSort(event.target.value)}><option>Publisert</option><option>Prisant lav-høy</option><option>Prisant høy-lav</option><option>Areal høy-lav</option></select><ChevronDown /></label></div>
+            <div className="results-heading"><h1 id="results-title">Bolig til salgs</h1><p><strong>41 048</strong> treff i <strong>26 789</strong> annonser</p></div>
+            <div className="result-actions"><label>Sorter på<select value={sort} onChange={(event) => setSort(event.target.value)}><option>Publisert</option><option>Prisant lav-høy</option><option>Prisant høy-lav</option><option>Areal høy-lav</option></select><ChevronDown /></label></div>
           </div>
 
           <div className="source-note"><Info /><p><strong>Ekte annonser, kontrollert 2. september 2026.</strong> Utvalget under lenker til originalannonsene. <a href="https://www.finn.no/realestate/homes/search.html" target="_blank" rel="noreferrer">Åpne alle live treff på FINN</a>.</p></div>
-          <a className="sorting-help" href="https://www.finn.no/realestate/homes/search.html" target="_blank" rel="noreferrer"><Info /> Slik sorteres søkeresultatene</a>
 
           <div className="listing-stack">
             {visible.map((listing) => (
