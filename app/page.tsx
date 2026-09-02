@@ -3,10 +3,12 @@
 import Image from 'next/image';
 import { useMemo, useState } from 'react';
 import {
+  Bell,
   Check,
   ChevronDown,
   Heart,
   Info,
+  MapPin,
   Search,
 } from 'lucide-react';
 
@@ -52,6 +54,8 @@ export default function Home() {
   const [newToday, setNewToday] = useState(false);
   const [counties, setCounties] = useState<Set<string>>(new Set());
   const [showAllCounties, setShowAllCounties] = useState(false);
+  const [savedSearch, setSavedSearch] = useState(false);
+  const [mapMode, setMapMode] = useState<'Tegn' | 'Radius' | null>(null);
   const [types, setTypes] = useState<Set<string>>(new Set());
   const [bedrooms, setBedrooms] = useState(0);
   const [sort, setSort] = useState('Publisert');
@@ -104,6 +108,8 @@ export default function Home() {
 
       <main id="main" className="search-shell">
         <aside className="filters" aria-label="Filtre">
+          <button className={`save-search${savedSearch ? ' saved' : ''}`} onClick={() => setSavedSearch((current) => !current)}><Bell size={17} /> {savedSearch ? 'Søk lagret' : 'Lagre søk'}</button>
+
           <FilterSection title="Søk i Eiendom">
             <form onSubmit={openLiveSearch} className="search-field"><input value={query} onChange={(event) => setQuery(event.target.value)} aria-label="Søk i Eiendom" /><button aria-label="Søk live på FINN"><Search /></button></form>
           </FilterSection>
@@ -112,8 +118,12 @@ export default function Home() {
             <CheckLine checked={newToday} onChange={setNewToday} label="Nye i dag" count="1 270" />
           </FilterSection>
 
-          <FilterSection title="Område">
+          <FilterSection title="Område i kart">
             <div className="search-field location-field"><input value={locationQuery} onChange={(event) => setLocationQuery(event.target.value)} placeholder="Hvor vil du bo?" aria-label="Søk etter sted" /><span aria-hidden="true"><Search /></span></div>
+            <div className="mini-map"><div className="mini-map-water" /><span>NORGE</span><div className="map-actions">{(['Tegn', 'Radius'] as const).map((mode) => <button key={mode} className={mapMode === mode ? 'active' : ''} aria-pressed={mapMode === mode} onClick={() => setMapMode((current) => current === mode ? null : mode)}>{mode}</button>)}</div><MapPin className="map-location" /></div>
+          </FilterSection>
+
+          <FilterSection title="Område">
             <div className="county-list">
               {countyCounts.slice(0, showAllCounties ? countyCounts.length : 6).map(([county, count]) => <CheckLine key={county} checked={counties.has(county)} onChange={() => toggleCounty(county)} label={county} count={count} />)}
             </div>
