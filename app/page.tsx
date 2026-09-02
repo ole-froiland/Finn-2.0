@@ -41,9 +41,29 @@ const listings: Listing[] = [
 ];
 
 const countyCounts = [
-  ['Agder', '2 310'], ['Akershus', '7 267'], ['Buskerud', '2 269'], ['Innlandet', '2 897'],
-  ['Oslo', '5 443'], ['Rogaland', '3 182'], ['Trøndelag', '2 751'], ['Vestfold', '2 104'], ['Vestland', '3 063'],
+  ['Agder', '2 311'], ['Akershus', '7 267'], ['Buskerud', '2 269'], ['Finnmark', '343'], ['Innlandet', '2 898'],
+  ['Møre og Romsdal', '1 689'], ['Nordland', '1 386'], ['Oslo', '5 443'], ['Rogaland', '3 040'], ['Svalbard', '3'],
+  ['Telemark', '902'], ['Troms', '769'], ['Trøndelag', '4 481'], ['Vestfold', '2 315'], ['Vestland', '3 145'], ['Østfold', '2 874'],
 ] as const;
+
+const filterOptions = {
+  status: [['Til salgs', '39 501'], ['Solgt siste 3 dager', '1 391'], ['Kommer for salg', '243']],
+  condition: [['Brukt bolig', '23 073'], ['Nybygg', '18 062']],
+  types: [['Leilighet', '25 770'], ['Enebolig', '9 574'], ['Tomannsbolig', '2 517'], ['Rekkehus', '2 205'], ['Gårdsbruk/Småbruk', '425'], ['Garasje/Parkering', '247'], ['Andre', '390']],
+  ownership: [['Aksje', '273'], ['Andel', '8 936'], ['Obligasjon', '2'], ['Selveier', '31 857'], ['Annet', '65']],
+  seller: [['Megler', '40 042'], ['Privat', '1 093']],
+  facilities: [['Aircondition', '1 384'], ['Alarm', '569'], ['Balkong/Terrasse', '32 285'], ['Bredbåndstilknytning', '19 193'], ['Fellesvaskeri', '885'], ['Garasje/P-plass', '27 623'], ['Heis', '15 101'], ['Ingen gjenboere', '4 315'], ['Lademulighet', '8 742'], ['Moderne', '4 953'], ['Peis/Ildsted', '11 990'], ['Strandlinje', '1 026'], ['Turterreng', '25 399'], ['Utsikt', '20 172'], ['Vaktmester-/vektertjeneste', '5 938']],
+  digital: [['Video', '2 729'], ['360 visning', '461']],
+  viewing: [['tirsdag 01. september', '2 044'], ['onsdag 02. september', '2 967'], ['torsdag 03. september', '2 432'], ['fredag 04. september', '132'], ['lørdag 05. september', '367'], ['søndag 06. september', '1 804'], ['tirsdag 08. september', '2 116'], ['torsdag 10. september', '1 692'], ['mandag 14. september', '1 408'], ['lørdag 19. september', '298']],
+  floor: [['Ikke 1. etasje', '22 808'], ['1. etasje', '6 725'], ['2. etasje', '9 383'], ['3. etasje', '5 843'], ['4. etasje', '3 569'], ['5. etasje', '2 062'], ['6. etasje', '1 006'], ['Over 6. etasje', '945']],
+  energy: [['A', '1 376'], ['B', '4 609'], ['C', '4 083'], ['D', '3 509'], ['E', '2 729'], ['F', '2 079'], ['G', '3 435']],
+} as const;
+
+type RangeKey = 'price' | 'totalPrice' | 'monthlyCosts' | 'area' | 'yearBuilt' | 'lotSize';
+const emptyRanges: Record<RangeKey, { from: string; to: string }> = {
+  price: { from: '', to: '' }, totalPrice: { from: '', to: '' }, monthlyCosts: { from: '', to: '' },
+  area: { from: '', to: '' }, yearBuilt: { from: '', to: '' }, lotSize: { from: '', to: '' },
+};
 
 const money = (value: number) => `${new Intl.NumberFormat('nb-NO').format(value)} kr`;
 
@@ -54,22 +74,56 @@ export default function Home() {
   const [newToday, setNewToday] = useState(false);
   const [counties, setCounties] = useState<Set<string>>(new Set());
   const [showAllCounties, setShowAllCounties] = useState(false);
+  const [showAllTypes, setShowAllTypes] = useState(false);
+  const [showAllViewingDates, setShowAllViewingDates] = useState(false);
   const [savedSearch, setSavedSearch] = useState(false);
   const [mapMode, setMapMode] = useState<'Tegn' | 'Radius' | null>(null);
   const [types, setTypes] = useState<Set<string>>(new Set());
+  const [optionFilters, setOptionFilters] = useState<Set<string>>(new Set());
+  const [ranges, setRanges] = useState(emptyRanges);
   const [bedrooms, setBedrooms] = useState(0);
   const [sort, setSort] = useState('Publisert');
 
   const visible = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase('nb-NO');
     const locationNeedle = locationQuery.trim().toLocaleLowerCase('nb-NO');
+    const selected = (group: string) => [...optionFilters].filter((item) => item.startsWith(`${group}:`)).map((item) => item.slice(group.length + 1));
+    const matchesOption = (group: string, value: string | null) => {
+      const values = selected(group);
+      return !values.length || (value !== null && values.includes(value));
+    };
+    const matchesRange = (key: RangeKey, value: number | null) => {
+      const from = Number(ranges[key].from.replace(/\s/g, '')) || 0;
+      const to = Number(ranges[key].to.replace(/\s/g, '')) || Infinity;
+      if (!ranges[key].from && !ranges[key].to) return true;
+      return value !== null && value >= from && value <= to;
+    };
     const result = listings.filter((listing) =>
       (!needle || `${listing.title} ${listing.address}`.toLocaleLowerCase('nb-NO').includes(needle)) &&
       (!locationNeedle || `${listing.address} ${listing.county}`.toLocaleLowerCase('nb-NO').includes(locationNeedle)) &&
       (!newToday || listing.publishedToday) &&
       (!counties.size || counties.has(listing.county)) &&
       (!types.size || types.has(listing.type)) &&
-      (!bedrooms || listing.bedrooms >= bedrooms),
+      (!bedrooms || listing.bedrooms >= bedrooms) &&
+      matchesOption('status', 'Til salgs') &&
+      matchesOption('condition', 'Brukt bolig') &&
+      matchesOption('ownership', listing.ownership) &&
+      matchesOption('seller', 'Megler') &&
+      matchesOption('digital', null) &&
+      matchesOption('viewing', filterOptions.viewing.find(([date]) => listing.viewing.toLocaleLowerCase('nb-NO').includes(date.split(' ').slice(1).join(' ').replace('september', 'sep.')))?.[0] ?? null) &&
+      matchesOption('floor', listing.title.includes('1. etasje') ? '1. etasje' : null) &&
+      matchesOption('energy', null) &&
+      selected('facility').every((facility) => {
+        const text = listing.title.toLocaleLowerCase('nb-NO');
+        const terms: Record<string, string[]> = { 'Balkong/Terrasse': ['balkong', 'terrasse', 'veranda'], 'Garasje/P-plass': ['garasje', 'parkering'], 'Utsikt': ['utsikt', 'sjøutsikt'], 'Strandlinje': ['strandlinje'], 'Moderne': ['moderne'], 'Peis/Ildsted': ['peis'] };
+        return (terms[facility] ?? []).some((term) => text.includes(term));
+      }) &&
+      matchesRange('price', listing.price) &&
+      matchesRange('totalPrice', listing.totalPrice) &&
+      matchesRange('monthlyCosts', null) &&
+      matchesRange('area', listing.area) &&
+      matchesRange('yearBuilt', null) &&
+      matchesRange('lotSize', null),
     );
     return [...result].sort((a, b) => {
       if (sort === 'Prisant lav-høy') return a.price - b.price;
@@ -77,7 +131,7 @@ export default function Home() {
       if (sort === 'Areal høy-lav') return b.area - a.area;
       return 0;
     });
-  }, [bedrooms, counties, locationQuery, newToday, query, sort, types]);
+  }, [bedrooms, counties, locationQuery, newToday, optionFilters, query, ranges, sort, types]);
 
   const toggleType = (type: string) => setTypes((current) => {
     const next = new Set(current);
@@ -90,6 +144,15 @@ export default function Home() {
     if (next.has(county)) next.delete(county); else next.add(county);
     return next;
   });
+
+  const toggleOption = (group: string, value: string) => setOptionFilters((current) => {
+    const next = new Set(current);
+    const key = `${group}:${value}`;
+    if (next.has(key)) next.delete(key); else next.add(key);
+    return next;
+  });
+
+  const updateRange = (key: RangeKey, side: 'from' | 'to', value: string) => setRanges((current) => ({ ...current, [key]: { ...current[key], [side]: value } }));
 
   const openLiveSearch: NonNullable<React.ComponentProps<'form'>['onSubmit']> = (event) => {
     event.preventDefault();
@@ -130,14 +193,38 @@ export default function Home() {
             <button className="show-all" onClick={() => setShowAllCounties((current) => !current)}>{showAllCounties ? 'Vis færre' : 'Vis alle'}</button>
           </FilterSection>
 
+          <OptionSection title="Salgsstatus" group="status" options={filterOptions.status} selected={optionFilters} onToggle={toggleOption} />
+          <OptionSection title="Tilstand" group="condition" options={filterOptions.condition} selected={optionFilters} onToggle={toggleOption} />
+
+          <RangeFilter title="Prisantydning" rangeKey="price" unit="kr" values={ranges.price} onChange={updateRange} />
+          <RangeFilter title="Totalpris" rangeKey="totalPrice" unit="kr" values={ranges.totalPrice} onChange={updateRange} />
+          <RangeFilter title="Fellesutgifter per måned" rangeKey="monthlyCosts" unit="kr" values={ranges.monthlyCosts} onChange={updateRange} />
+          <RangeFilter title="Størrelse" rangeKey="area" unit="m²" values={ranges.area} onChange={updateRange} />
+
           <FilterSection title="Antall soverom">
-            <div className="radio-row">{[0, 1, 2, 3, 4].map((value) => <button key={value} onClick={() => setBedrooms(value)} className={bedrooms === value ? 'selected' : ''}>{value ? `${value}+` : 'Alle'}</button>)}</div>
+            <div className="radio-row">{[0, 1, 2, 3, 4, 5].map((value) => <button key={value} onClick={() => setBedrooms(value)} className={bedrooms === value ? 'selected' : ''}>{value ? `${value}+` : 'Alle'}</button>)}</div>
           </FilterSection>
 
+          <RangeFilter title="Byggeår" rangeKey="yearBuilt" unit="" values={ranges.yearBuilt} onChange={updateRange} />
+
           <FilterSection title="Boligtype">
-            <CheckLine checked={types.has('Leilighet')} onChange={() => toggleType('Leilighet')} label="Leilighet" count="25 685" />
-            <CheckLine checked={types.has('Enebolig')} onChange={() => toggleType('Enebolig')} label="Enebolig" count="9 572" />
+            {filterOptions.types.slice(0, showAllTypes ? filterOptions.types.length : 4).map(([type, count]) => <CheckLine key={type} checked={types.has(type)} onChange={() => toggleType(type)} label={type} count={count} />)}
+            <button className="show-all" onClick={() => setShowAllTypes((current) => !current)}>{showAllTypes ? 'Vis færre' : 'Vis alle'}</button>
           </FilterSection>
+
+          <OptionSection title="Eierform" group="ownership" options={filterOptions.ownership} selected={optionFilters} onToggle={toggleOption} />
+          <OptionSection title="Privat/Megler" group="seller" options={filterOptions.seller} selected={optionFilters} onToggle={toggleOption} />
+          <OptionSection title="Fasiliteter" group="facility" options={filterOptions.facilities} selected={optionFilters} onToggle={toggleOption} />
+          <OptionSection title="Digitale visninger" group="digital" options={filterOptions.digital} selected={optionFilters} onToggle={toggleOption} />
+
+          <FilterSection title="Visningsdato">
+            {filterOptions.viewing.slice(0, showAllViewingDates ? filterOptions.viewing.length : 5).map(([date, count]) => <CheckLine key={date} checked={optionFilters.has(`viewing:${date}`)} onChange={() => toggleOption('viewing', date)} label={date} count={count} />)}
+            <button className="show-all" onClick={() => setShowAllViewingDates((current) => !current)}>{showAllViewingDates ? 'Vis færre' : 'Vis alle'}</button>
+          </FilterSection>
+
+          <OptionSection title="Etasje" group="floor" options={filterOptions.floor} selected={optionFilters} onToggle={toggleOption} />
+          <OptionSection title="Energikarakter" group="energy" options={filterOptions.energy} selected={optionFilters} onToggle={toggleOption} />
+          <RangeFilter title="Tomtestørrelse" rangeKey="lotSize" unit="m²" values={ranges.lotSize} onChange={updateRange} />
         </aside>
 
         <section className="results" aria-labelledby="results-title">
@@ -168,7 +255,7 @@ export default function Home() {
             ))}
           </div>
 
-          {visible.length === 0 && <div className="empty-state"><Search /><h2>Ingen annonser i dette utvalget</h2><p>Fjern et filter, eller søk i hele den levende katalogen.</p><button onClick={() => { setQuery(''); setLocationQuery(''); setNewToday(false); setCounties(new Set()); setTypes(new Set()); setBedrooms(0); }}>Nullstill filtre</button></div>}
+          {visible.length === 0 && <div className="empty-state"><Search /><h2>Ingen annonser i dette utvalget</h2><p>Fjern et filter, eller søk i hele den levende katalogen.</p><button onClick={() => { setQuery(''); setLocationQuery(''); setNewToday(false); setCounties(new Set()); setTypes(new Set()); setOptionFilters(new Set()); setRanges(emptyRanges); setBedrooms(0); }}>Nullstill filtre</button></div>}
           <a className="live-cta" href="https://www.finn.no/realestate/homes/search.html" target="_blank" rel="noreferrer">Vis alle oppdaterte boligannonser <span>↗</span></a>
         </section>
       </main>
@@ -178,6 +265,14 @@ export default function Home() {
 
 function FilterSection({ title, children }: { title: string; children: React.ReactNode }) {
   return <section className="filter-section"><h2>{title}</h2>{children}</section>;
+}
+
+function OptionSection({ title, group, options, selected, onToggle }: { title: string; group: string; options: ReadonlyArray<readonly [string, string]>; selected: Set<string>; onToggle: (group: string, value: string) => void }) {
+  return <FilterSection title={title}>{options.map(([label, count]) => <CheckLine key={label} checked={selected.has(`${group}:${label}`)} onChange={() => onToggle(group, label)} label={label} count={count} />)}</FilterSection>;
+}
+
+function RangeFilter({ title, rangeKey, unit, values, onChange }: { title: string; rangeKey: RangeKey; unit: string; values: { from: string; to: string }; onChange: (key: RangeKey, side: 'from' | 'to', value: string) => void }) {
+  return <FilterSection title={title}><div className="range-filter"><label><span>Fra {unit}</span><input inputMode="numeric" value={values.from} onChange={(event) => onChange(rangeKey, 'from', event.target.value.replace(/[^0-9 ]/g, ''))} /></label><label><span>Til {unit}</span><input inputMode="numeric" value={values.to} onChange={(event) => onChange(rangeKey, 'to', event.target.value.replace(/[^0-9 ]/g, ''))} /></label><button aria-label={`Bruk ${title.toLocaleLowerCase('nb-NO')}`}><Search /></button></div></FilterSection>;
 }
 
 function CheckLine({ checked, onChange, label, count }: { checked: boolean; onChange: (value: boolean) => void; label: string; count: string }) {
