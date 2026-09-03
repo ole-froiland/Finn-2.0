@@ -9,16 +9,14 @@ export const metadata: Metadata = {
         ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
         : 'http://localhost:3000'),
   ),
-  title: {
-    default: 'Hjemly – boliger til salgs i hele Norge',
-    template: '%s – Hjemly',
-  },
+  title: 'Bolig til salgs',
   description:
-    'Søk og filtrer blant boligannonser fra hele Norge. Alle annonser lenker til originalen på FINN.',
+    'Uoffisiell klone av FINN Eiendom. Søk og filtrer blant boligannonser fra hele Norge; '
+    + 'hver annonse lenker til originalen på finn.no. Ikke tilknyttet FINN.no AS.',
   openGraph: {
-    title: 'Hjemly – boliger til salgs i hele Norge',
+    title: 'Bolig til salgs',
     description:
-      'Søk og filtrer blant boligannonser fra hele Norge. Alle annonser lenker til originalen på FINN.',
+      'Uoffisiell klone av FINN Eiendom. Ikke tilknyttet FINN.no AS.',
     images: [{ url: '/og.png', width: 1200, height: 630 }],
     type: 'website',
     locale: 'nb_NO',
