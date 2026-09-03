@@ -22,6 +22,9 @@ on:
       enrich_limit:
         description: 'Hvor mange annonser som skal berikes med detaljdata'
         default: '400'
+      max_municipalities:
+        description: 'Begrens antall kommuner (tom = alle). Nyttig for en billig testkjøring.'
+        default: ''
 
 concurrency:
   group: refresh-listings
@@ -41,8 +44,28 @@ jobs:
         with:
           node-version: '22'
 
+      # FINN may refuse GitHub's Azure ranges outright. Fail loudly here rather
+      # than letting the harvest quietly write an empty dataset.
+      - name: Sjekk at FINN svarer
+        run: |
+          code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 30 \
+            -A 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36' \
+            'https://www.finn.no/realestate/homes/search.html')
+          echo "finn.no svarte $code"
+          if [ "$code" != "200" ]; then
+            echo "::error::FINN svarte $code fra denne runneren. Kjør 'npm run scrape' lokalt og commit i stedet."
+            exit 1
+          fi
+
       - name: Hent annonser
-        run: node scripts/scrape-finn.mjs --concurrency=3 --delay=400
+        env:
+          MAX_MUNICIPALITIES: ${{ inputs.max_municipalities }}
+        run: |
+          limit=""
+          if [ -n "$MAX_MUNICIPALITIES" ]; then
+            limit="--max-municipalities=$MAX_MUNICIPALITIES"
+          fi
+          node scripts/scrape-finn.mjs --concurrency=3 --delay=400 $limit
 
       - name: Hent detaljdata
         # Passed through env rather than interpolated into the shell command,
