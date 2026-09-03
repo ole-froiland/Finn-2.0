@@ -1,12 +1,13 @@
-# Hjemly
+# FINN Eiendom — uoffisiell klone
 
-En boligsøk-klone som henter ekte annonser fra FINN, lar deg filtrere med de
-samme filtrene som FINN bruker, og lenker hver annonse til originalen.
+Henter ekte annonser fra FINN, filtrerer dem med FINNs eget filtersett, viser
+dem i liste eller kart, og lenker hver annonse til originalen.
 
 **Live:** https://finn-2-0.vercel.app
 
-> Hjemly er et uavhengig hobbyprosjekt og er **ikke tilknyttet FINN.no AS**.
-> Annonsedata og bilder tilhører FINN og de respektive annonsørene.
+> Hobbyprosjekt, **ikke tilknyttet FINN.no AS**. FINN-navnet og -logoen tilhører
+> FINN.no AS; annonsedata og bilder tilhører FINN og de respektive annonsørene.
+> Siden er `noindex`.
 
 ## Slik henger det sammen
 
@@ -26,6 +27,7 @@ scripts/enrich-finn.mjs   ↗
 | `data/locations.json` | FINNs eget stedshierarki: 16 fylker, 383 kommuner, 69 underområder, med FINNs koder. |
 | `lib/finn/search.ts` | Filtermotoren og fasett-tellingen. |
 | `lib/finn/params.ts` | URL ↔ søk. Bruker FINNs egne parameternavn. |
+| `components/finn/MapView.tsx` | Kartvisningen (Leaflet + OpenStreetMap). |
 
 ## Hente annonser
 
@@ -61,6 +63,21 @@ Framdriften spores på `enrichedAt`, ikke på om et bestemt felt fikk verdi:
 mange annonser har for eksempel ingen energimerking i det hele tatt, og å måle
 på et felt som lovlig kan mangle ville fått jobben til å hente de samme
 annonsene i det uendelige.
+
+Denne kjøringen henter også **koordinatene**, som er det kartet lever av.
+
+En ting å vite: en lang kjøring med fire parallelle begynte å gi «fetch failed»
+mot slutten — forbigående struping, ikke manglende data. De samme annonsene
+gikk gjennom uten en eneste feil med `--concurrency=2`. Prøv roligere før du
+leter etter årsaken i dataene.
+
+### Annonselenker
+
+FINN legger annonser under tre stier — `/realestate/homes/`,
+`/realestate/project/` og `/realestate/projectsingle/` — og søkekortene sier
+ikke hvilken. Vi lagrer derfor FINNs egen kortlenke, `finn.no/<finnkode>`, som
+redirigerer til riktig sti uansett type. Å anta `homes` for alle ga 404 på hver
+nybyggannonse, altså 14 % av katalogen.
 
 Filtrene som avhenger av disse feltene viser en merknad i grensesnittet så
 lenge ingen annonser har dataene ennå.
