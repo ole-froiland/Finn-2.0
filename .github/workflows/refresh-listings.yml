@@ -1,0 +1,60 @@
+name: Oppdater boligannonser
+
+# Harvests finn.no and commits the result, which in turn triggers a Vercel
+# deploy. Runs twice a day; the enrichment pass is capped so a single run stays
+# polite and the catalogue fills in over several days.
+#
+# Heads up: GitHub's hosted runners come from Azure IP ranges, which FINN may
+# refuse. If the scrape step starts coming back empty, run it from a machine on
+# an ordinary connection instead (`npm run scrape`) and commit the result.
+
+on:
+  schedule:
+    - cron: '17 4,16 * * *'
+  workflow_dispatch:
+    inputs:
+      enrich_limit:
+        description: 'Hvor mange annonser som skal berikes med detaljdata'
+        default: '400'
+
+concurrency:
+  group: refresh-listings
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    timeout-minutes: 50
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Hent annonser
+        run: node scripts/scrape-finn.mjs --concurrency=3 --delay=400
+
+      - name: Hent detaljdata
+        # Passed through env rather than interpolated into the shell command,
+        # so the input can never be read as script.
+        env:
+          ENRICH_LIMIT: ${{ inputs.enrich_limit || '400' }}
+        run: node scripts/enrich-finn.mjs --limit="$ENRICH_LIMIT"
+        continue-on-error: true
+
+      - name: Commit hvis noe endret seg
+        run: |
+          if git diff --quiet -- data/; then
+            echo "Ingen endringer i datasettet."
+            exit 0
+          fi
+          count=$(node -p "require('./data/meta.json').total")
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add data/listings.json data/meta.json
+          git commit -m "Oppdater boligannonser (${count} annonser)"
+          git push

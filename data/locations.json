@@ -1,0 +1,2399 @@
+[
+ {
+  "name": "Agder",
+  "code": "0.22042",
+  "count": 2315,
+  "children": [
+   {
+    "name": "Arendal",
+    "code": "1.22042.20166",
+    "count": 360
+   },
+   {
+    "name": "Birkenes",
+    "code": "1.22042.20172",
+    "count": 0
+   },
+   {
+    "name": "Bygland",
+    "code": "1.22042.20176",
+    "count": 0
+   },
+   {
+    "name": "Bykle",
+    "code": "1.22042.20178",
+    "count": 0
+   },
+   {
+    "name": "Evje og Hornnes",
+    "code": "1.22042.20175",
+    "count": 0
+   },
+   {
+    "name": "Farsund",
+    "code": "1.22042.20181",
+    "count": 0
+   },
+   {
+    "name": "Flekkefjord",
+    "code": "1.22042.20182",
+    "count": 0
+   },
+   {
+    "name": "Froland",
+    "code": "1.22042.20170",
+    "count": 0
+   },
+   {
+    "name": "Gjerstad",
+    "code": "1.22042.20167",
+    "count": 0
+   },
+   {
+    "name": "Grimstad",
+    "code": "1.22042.20165",
+    "count": 207
+   },
+   {
+    "name": "Hægebostad",
+    "code": "1.22042.20191",
+    "count": 0
+   },
+   {
+    "name": "Iveland",
+    "code": "1.22042.20174",
+    "count": 0
+   },
+   {
+    "name": "Kristiansand",
+    "code": "1.22042.20179",
+    "count": 938,
+    "children": [
+     {
+      "name": "Kristiansand Nord",
+      "code": "2.22042.20179.20707",
+      "count": 0
+     },
+     {
+      "name": "Kristiansand Sentrum",
+      "code": "2.22042.20179.20536",
+      "count": 383
+     },
+     {
+      "name": "Kristiansand Vest",
+      "code": "2.22042.20179.20709",
+      "count": 0
+     },
+     {
+      "name": "Kristiansand Øst",
+      "code": "2.22042.20179.20708",
+      "count": 0
+     },
+     {
+      "name": "Songdalen",
+      "code": "2.22042.20179.20734",
+      "count": 0
+     },
+     {
+      "name": "Søgne",
+      "code": "2.22042.20179.20735",
+      "count": 0
+     }
+    ]
+   },
+   {
+    "name": "Kvinesdal",
+    "code": "1.22042.20192",
+    "count": 0
+   },
+   {
+    "name": "Lillesand",
+    "code": "1.22042.20171",
+    "count": 120
+   },
+   {
+    "name": "Lindesnes",
+    "code": "1.22042.20189",
+    "count": 133
+   },
+   {
+    "name": "Lyngdal",
+    "code": "1.22042.20190",
+    "count": 0
+   },
+   {
+    "name": "Risør",
+    "code": "1.22042.20164",
+    "count": 77
+   },
+   {
+    "name": "Sirdal",
+    "code": "1.22042.20193",
+    "count": 0
+   },
+   {
+    "name": "Tvedestrand",
+    "code": "1.22042.20169",
+    "count": 78
+   },
+   {
+    "name": "Valle",
+    "code": "1.22042.20177",
+    "count": 0
+   },
+   {
+    "name": "Vegårshei",
+    "code": "1.22042.20168",
+    "count": 0
+   },
+   {
+    "name": "Vennesla",
+    "code": "1.22042.20183",
+    "count": 0
+   },
+   {
+    "name": "Åmli",
+    "code": "1.22042.20173",
+    "count": 0
+   },
+   {
+    "name": "Åseral",
+    "code": "1.22042.20187",
+    "count": 0
+   }
+  ]
+ },
+ {
+  "name": "Akershus",
+  "code": "0.20003",
+  "count": 7245,
+  "children": [
+   {
+    "name": "Asker",
+    "code": "1.20003.20046",
+    "count": 980,
+    "children": [
+     {
+      "name": "Gamle Asker",
+      "code": "2.20003.20046.23016",
+      "count": 740
+     },
+     {
+      "name": "Hurum",
+      "code": "2.20003.20046.23018",
+      "count": 0
+     },
+     {
+      "name": "Røyken",
+      "code": "2.20003.20046.23017",
+      "count": 0
+     }
+    ]
+   },
+   {
+    "name": "Aurskog-Høland",
+    "code": "1.20003.20047",
+    "count": 206
+   },
+   {
+    "name": "Bærum",
+    "code": "1.20003.20045",
+    "count": 1169
+   },
+   {
+    "name": "Eidsvoll",
+    "code": "1.20003.20058",
+    "count": 338
+   },
+   {
+    "name": "Enebakk",
+    "code": "1.20003.20051",
+    "count": 153
+   },
+   {
+    "name": "Frogn - Drøbak",
+    "code": "1.20003.20042",
+    "count": 178
+   },
+   {
+    "name": "Gjerdrum",
+    "code": "1.20003.20055",
+    "count": 0
+   },
+   {
+    "name": "Hurdal",
+    "code": "1.20003.20060",
+    "count": 0
+   },
+   {
+    "name": "Lillestrøm",
+    "code": "1.20003.22105",
+    "count": 792,
+    "children": [
+     {
+      "name": "Fet",
+      "code": "2.20003.22105.23020",
+      "count": 98
+     },
+     {
+      "name": "Skedsmo",
+      "code": "2.20003.22105.23021",
+      "count": 0
+     },
+     {
+      "name": "Sørum",
+      "code": "2.20003.22105.23019",
+      "count": 0
+     }
+    ]
+   },
+   {
+    "name": "Lørenskog",
+    "code": "1.20003.20052",
+    "count": 611
+   },
+   {
+    "name": "Nannestad",
+    "code": "1.20003.20059",
+    "count": 252
+   },
+   {
+    "name": "Nes",
+    "code": "1.20003.20057",
+    "count": 0
+   },
+   {
+    "name": "Nesodden",
+    "code": "1.20003.20043",
+    "count": 198
+   },
+   {
+    "name": "Nittedal",
+    "code": "1.20003.20054",
+    "count": 136
+   },
+   {
+    "name": "Nordre Follo",
+    "code": "1.20003.22104",
+    "count": 527,
+    "children": [
+     {
+      "name": "Oppegård",
+      "code": "2.20003.22104.23015",
+      "count": 0
+     },
+     {
+      "name": "Ski",
+      "code": "2.20003.22104.23014",
+      "count": 0
+     }
+    ]
+   },
+   {
+    "name": "Rælingen",
+    "code": "1.20003.20050",
+    "count": 0
+   },
+   {
+    "name": "Ullensaker",
+    "code": "1.20003.20056",
+    "count": 678
+   },
+   {
+    "name": "Vestby",
+    "code": "1.20003.20039",
+    "count": 304
+   },
+   {
+    "name": "Ås",
+    "code": "1.20003.20041",
+    "count": 0
+   }
+  ]
+ },
+ {
+  "name": "Buskerud",
+  "code": "0.20007",
+  "count": 2269,
+  "children": [
+   {
+    "name": "Drammen",
+    "code": "1.20007.20110",
+    "count": 1056,
+    "children": [
+     {
+      "name": "Gamle Drammen",
+      "code": "2.20007.20110.23006",
+      "count": 839
+     },
+     {
+      "name": "Nedre Eiker",
+      "code": "2.20007.20110.23007",
+      "count": 169
+     },
+     {
+      "name": "Svelvik",
+      "code": "2.20007.20110.23008",
+      "count": 0
+     }
+    ]
+   },
+   {
+    "name": "Flesberg",
+    "code": "1.20007.20128",
+    "count": 0
+   },
+   {
+    "name": "Flå",
+    "code": "1.20007.20114",
+    "count": 0
+   },
+   {
+    "name": "Gol",
+    "code": "1.20007.20116",
+    "count": 0
+   },
+   {
+    "name": "Hemsedal",
+    "code": "1.20007.20117",
+    "count": 0
+   },
+   {
+    "name": "Hol",
+    "code": "1.20007.20119",
+    "count": 0
+   },
+   {
+    "name": "Hole",
+    "code": "1.20007.20113",
+    "count": 60
+   },
+   {
+    "name": "Kongsberg",
+    "code": "1.20007.20111",
+    "count": 0
+   },
+   {
+    "name": "Krødsherad",
+    "code": "1.20007.20121",
+    "count": 0
+   },
+   {
+    "name": "Lier",
+    "code": "1.20007.20125",
+    "count": 0
+   },
+   {
+    "name": "Modum",
+    "code": "1.20007.20122",
+    "count": 0
+   },
+   {
+    "name": "Nesbyen",
+    "code": "1.20007.20115",
+    "count": 0
+   },
+   {
+    "name": "Nore og Uvdal",
+    "code": "1.20007.20130",
+    "count": 0
+   },
+   {
+    "name": "Ringerike",
+    "code": "1.20007.20112",
+    "count": 248
+   },
+   {
+    "name": "Rollag",
+    "code": "1.20007.20129",
+    "count": 0
+   },
+   {
+    "name": "Sigdal",
+    "code": "1.20007.20120",
+    "count": 0
+   },
+   {
+    "name": "Ål",
+    "code": "1.20007.20118",
+    "count": 0
+   },
+   {
+    "name": "Øvre Eiker",
+    "code": "1.20007.20123",
+    "count": 149
+   }
+  ]
+ },
+ {
+  "name": "Finnmark",
+  "code": "0.20020",
+  "count": 343,
+  "children": [
+   {
+    "name": "Alta",
+    "code": "1.20020.20441",
+    "count": 0
+   },
+   {
+    "name": "Berlevåg",
+    "code": "1.20020.20451",
+    "count": 0
+   },
+   {
+    "name": "Båtsfjord",
+    "code": "1.20020.20454",
+    "count": 0
+   },
+   {
+    "name": "Gamvik",
+    "code": "1.20020.20450",
+    "count": 0
+   },
+   {
+    "name": "Hammerfest",
+    "code": "1.20020.20439",
+    "count": 0
+   },
+   {
+    "name": "Hasvik",
+    "code": "1.20020.20443",
+    "count": 0
+   },
+   {
+    "name": "Karasjok",
+    "code": "1.20020.20448",
+    "count": 0
+   },
+   {
+    "name": "Kautokeino",
+    "code": "1.20020.20440",
+    "count": 0
+   },
+   {
+    "name": "Lebesby",
+    "code": "1.20020.20449",
+    "count": 0
+   },
+   {
+    "name": "Loppa",
+    "code": "1.20020.20442",
+    "count": 0
+   },
+   {
+    "name": "Måsøy",
+    "code": "1.20020.20445",
+    "count": 0
+   },
+   {
+    "name": "Nesseby",
+    "code": "1.20020.20453",
+    "count": 0
+   },
+   {
+    "name": "Nordkapp",
+    "code": "1.20020.20446",
+    "count": 0
+   },
+   {
+    "name": "Porsanger",
+    "code": "1.20020.20447",
+    "count": 0
+   },
+   {
+    "name": "Sør-Varanger",
+    "code": "1.20020.20455",
+    "count": 62
+   },
+   {
+    "name": "Tana",
+    "code": "1.20020.20452",
+    "count": 0
+   },
+   {
+    "name": "Vadsø",
+    "code": "1.20020.20438",
+    "count": 0
+   },
+   {
+    "name": "Vardø",
+    "code": "1.20020.20437",
+    "count": 0
+   }
+  ]
+ },
+ {
+  "name": "Innlandet",
+  "code": "0.22034",
+  "count": 2911,
+  "children": [
+   {
+    "name": "Alvdal",
+    "code": "1.22034.20081",
+    "count": 0
+   },
+   {
+    "name": "Dovre",
+    "code": "1.22034.20086",
+    "count": 0
+   },
+   {
+    "name": "Eidskog",
+    "code": "1.22034.20069",
+    "count": 28
+   },
+   {
+    "name": "Elverum",
+    "code": "1.22034.20073",
+    "count": 215
+   },
+   {
+    "name": "Engerdal",
+    "code": "1.22034.20078",
+    "count": 0
+   },
+   {
+    "name": "Etnedal",
+    "code": "1.22034.20105",
+    "count": 0
+   },
+   {
+    "name": "Folldal",
+    "code": "1.22034.20082",
+    "count": 0
+   },
+   {
+    "name": "Gausdal",
+    "code": "1.22034.20096",
+    "count": 0
+   },
+   {
+    "name": "Gjøvik",
+    "code": "1.22034.20085",
+    "count": 242
+   },
+   {
+    "name": "Gran",
+    "code": "1.22034.20101",
+    "count": 0
+   },
+   {
+    "name": "Grue",
+    "code": "1.22034.20070",
+    "count": 0
+   },
+   {
+    "name": "Hamar",
+    "code": "1.22034.20063",
+    "count": 686
+   },
+   {
+    "name": "Jevnaker",
+    "code": "1.22034.20099",
+    "count": 0
+   },
+   {
+    "name": "Kongsvinger",
+    "code": "1.22034.20062",
+    "count": 158
+   },
+   {
+    "name": "Lesja",
+    "code": "1.22034.20087",
+    "count": 0
+   },
+   {
+    "name": "Lillehammer",
+    "code": "1.22034.20084",
+    "count": 201
+   },
+   {
+    "name": "Lom",
+    "code": "1.22034.20089",
+    "count": 0
+   },
+   {
+    "name": "Lunner",
+    "code": "1.22034.20100",
+    "count": 0
+   },
+   {
+    "name": "Løten",
+    "code": "1.22034.20065",
+    "count": 0
+   },
+   {
+    "name": "Nord-Aurdal",
+    "code": "1.22034.20106",
+    "count": 0
+   },
+   {
+    "name": "Nord-Fron",
+    "code": "1.22034.20091",
+    "count": 0
+   },
+   {
+    "name": "Nord-Odal",
+    "code": "1.22034.20067",
+    "count": 0
+   },
+   {
+    "name": "Nordre Land",
+    "code": "1.22034.20103",
+    "count": 0
+   },
+   {
+    "name": "Os (Innlandet)",
+    "code": "1.22034.20083",
+    "count": 0
+   },
+   {
+    "name": "Rendalen",
+    "code": "1.22034.20077",
+    "count": 0
+   },
+   {
+    "name": "Ringebu",
+    "code": "1.22034.20094",
+    "count": 0
+   },
+   {
+    "name": "Ringsaker",
+    "code": "1.22034.20064",
+    "count": 0
+   },
+   {
+    "name": "Sel",
+    "code": "1.22034.20092",
+    "count": 0
+   },
+   {
+    "name": "Skjåk",
+    "code": "1.22034.20088",
+    "count": 0
+   },
+   {
+    "name": "Stange",
+    "code": "1.22034.20066",
+    "count": 182
+   },
+   {
+    "name": "Stor-Elvdal",
+    "code": "1.22034.20076",
+    "count": 0
+   },
+   {
+    "name": "Søndre Land",
+    "code": "1.22034.20102",
+    "count": 0
+   },
+   {
+    "name": "Sør-Aurdal",
+    "code": "1.22034.20104",
+    "count": 0
+   },
+   {
+    "name": "Sør-Fron",
+    "code": "1.22034.20093",
+    "count": 0
+   },
+   {
+    "name": "Sør-Odal",
+    "code": "1.22034.20068",
+    "count": 0
+   },
+   {
+    "name": "Tolga",
+    "code": "1.22034.20079",
+    "count": 0
+   },
+   {
+    "name": "Trysil",
+    "code": "1.22034.20074",
+    "count": 0
+   },
+   {
+    "name": "Tynset",
+    "code": "1.22034.20080",
+    "count": 0
+   },
+   {
+    "name": "Vang",
+    "code": "1.22034.20109",
+    "count": 0
+   },
+   {
+    "name": "Vestre Slidre",
+    "code": "1.22034.20107",
+    "count": 0
+   },
+   {
+    "name": "Vestre Toten",
+    "code": "1.22034.20098",
+    "count": 0
+   },
+   {
+    "name": "Vågå",
+    "code": "1.22034.20090",
+    "count": 0
+   },
+   {
+    "name": "Våler (Innlandet)",
+    "code": "1.22034.20072",
+    "count": 0
+   },
+   {
+    "name": "Åmot",
+    "code": "1.22034.20075",
+    "count": 0
+   },
+   {
+    "name": "Åsnes",
+    "code": "1.22034.20071",
+    "count": 0
+   },
+   {
+    "name": "Østre Toten",
+    "code": "1.22034.20097",
+    "count": 102
+   },
+   {
+    "name": "Øyer",
+    "code": "1.22034.20095",
+    "count": 0
+   },
+   {
+    "name": "Øystre Slidre",
+    "code": "1.22034.20108",
+    "count": 0
+   }
+  ]
+ },
+ {
+  "name": "Møre og Romsdal",
+  "code": "0.20015",
+  "count": 1690,
+  "children": [
+   {
+    "name": "Aukra",
+    "code": "1.20015.20304",
+    "count": 0
+   },
+   {
+    "name": "Aure",
+    "code": "1.20015.20314",
+    "count": 0
+   },
+   {
+    "name": "Averøy",
+    "code": "1.20015.20307",
+    "count": 0
+   },
+   {
+    "name": "Fjord",
+    "code": "1.20015.22101",
+    "count": 0
+   },
+   {
+    "name": "Giske",
+    "code": "1.20015.20297",
+    "count": 106
+   },
+   {
+    "name": "Gjemnes",
+    "code": "1.20015.20309",
+    "count": 0
+   },
+   {
+    "name": "Haram",
+    "code": "1.20015.20298",
+    "count": 0
+   },
+   {
+    "name": "Hareid",
+    "code": "1.20015.20287",
+    "count": 0
+   },
+   {
+    "name": "Herøy (M.R.)",
+    "code": "1.20015.20285",
+    "count": 0
+   },
+   {
+    "name": "Hustadvika",
+    "code": "1.20015.22102",
+    "count": 0
+   },
+   {
+    "name": "Kristiansund",
+    "code": "1.20015.20281",
+    "count": 0
+   },
+   {
+    "name": "Molde",
+    "code": "1.20015.20280",
+    "count": 211
+   },
+   {
+    "name": "Rauma",
+    "code": "1.20015.20300",
+    "count": 0
+   },
+   {
+    "name": "Sande (M.R.)",
+    "code": "1.20015.20284",
+    "count": 0
+   },
+   {
+    "name": "Smøla",
+    "code": "1.20015.20317",
+    "count": 0
+   },
+   {
+    "name": "Stranda",
+    "code": "1.20015.20292",
+    "count": 0
+   },
+   {
+    "name": "Sula",
+    "code": "1.20015.20296",
+    "count": 0
+   },
+   {
+    "name": "Sunndal",
+    "code": "1.20015.20311",
+    "count": 0
+   },
+   {
+    "name": "Surnadal",
+    "code": "1.20015.20312",
+    "count": 0
+   },
+   {
+    "name": "Sykkylven",
+    "code": "1.20015.20294",
+    "count": 0
+   },
+   {
+    "name": "Tingvoll",
+    "code": "1.20015.20310",
+    "count": 0
+   },
+   {
+    "name": "Ulstein",
+    "code": "1.20015.20286",
+    "count": 46
+   },
+   {
+    "name": "Vanylven",
+    "code": "1.20015.20283",
+    "count": 0
+   },
+   {
+    "name": "Vestnes",
+    "code": "1.20015.20299",
+    "count": 0
+   },
+   {
+    "name": "Volda",
+    "code": "1.20015.20288",
+    "count": 0
+   },
+   {
+    "name": "Ålesund",
+    "code": "1.20015.20282",
+    "count": 558,
+    "children": [
+     {
+      "name": "Gamle Ålesund",
+      "code": "2.20015.20282.23001",
+      "count": 503
+     },
+     {
+      "name": "Sandøy",
+      "code": "2.20015.20282.23005",
+      "count": 0
+     },
+     {
+      "name": "Skodje",
+      "code": "2.20015.20282.23003",
+      "count": 0
+     },
+     {
+      "name": "Ørskog",
+      "code": "2.20015.20282.23002",
+      "count": 0
+     }
+    ]
+   },
+   {
+    "name": "Ørsta",
+    "code": "1.20015.20289",
+    "count": 0
+   }
+  ]
+ },
+ {
+  "name": "Nordland",
+  "code": "0.20018",
+  "count": 1385,
+  "children": [
+   {
+    "name": "Alstahaug",
+    "code": "1.20018.20375",
+    "count": 34
+   },
+   {
+    "name": "Andøy",
+    "code": "1.20018.20410",
+    "count": 0
+   },
+   {
+    "name": "Beiarn",
+    "code": "1.20018.20389",
+    "count": 0
+   },
+   {
+    "name": "Bindal",
+    "code": "1.20018.20369",
+    "count": 0
+   },
+   {
+    "name": "Bodø",
+    "code": "1.20018.20367",
+    "count": 0
+   },
+   {
+    "name": "Brønnøy",
+    "code": "1.20018.20371",
+    "count": 0
+   },
+   {
+    "name": "Bø (Nordland)",
+    "code": "1.20018.20407",
+    "count": 0
+   },
+   {
+    "name": "Dønna",
+    "code": "1.20018.20380",
+    "count": 0
+   },
+   {
+    "name": "Evenes",
+    "code": "1.20018.20399",
+    "count": 0
+   },
+   {
+    "name": "Fauske",
+    "code": "1.20018.20391",
+    "count": 0
+   },
+   {
+    "name": "Flakstad",
+    "code": "1.20018.20403",
+    "count": 0
+   },
+   {
+    "name": "Gildeskål",
+    "code": "1.20018.20388",
+    "count": 0
+   },
+   {
+    "name": "Grane",
+    "code": "1.20018.20378",
+    "count": 0
+   },
+   {
+    "name": "Hadsel",
+    "code": "1.20018.20406",
+    "count": 0
+   },
+   {
+    "name": "Hamarøy",
+    "code": "1.20018.20395",
+    "count": 0
+   },
+   {
+    "name": "Hattfjelldal",
+    "code": "1.20018.20379",
+    "count": 0
+   },
+   {
+    "name": "Hemnes",
+    "code": "1.20018.20382",
+    "count": 0
+   },
+   {
+    "name": "Herøy (Nordland)",
+    "code": "1.20018.20374",
+    "count": 0
+   },
+   {
+    "name": "Leirfjord",
+    "code": "1.20018.20376",
+    "count": 0
+   },
+   {
+    "name": "Lurøy",
+    "code": "1.20018.20384",
+    "count": 0
+   },
+   {
+    "name": "Lødingen",
+    "code": "1.20018.20397",
+    "count": 0
+   },
+   {
+    "name": "Meløy",
+    "code": "1.20018.20387",
+    "count": 0
+   },
+   {
+    "name": "Moskenes",
+    "code": "1.20018.20411",
+    "count": 0
+   },
+   {
+    "name": "Narvik",
+    "code": "1.20018.20368",
+    "count": 0
+   },
+   {
+    "name": "Nesna",
+    "code": "1.20018.20381",
+    "count": 0
+   },
+   {
+    "name": "Rana",
+    "code": "1.20018.20383",
+    "count": 235
+   },
+   {
+    "name": "Rødøy",
+    "code": "1.20018.20386",
+    "count": 0
+   },
+   {
+    "name": "Røst",
+    "code": "1.20018.20401",
+    "count": 0
+   },
+   {
+    "name": "Saltdal",
+    "code": "1.20018.20390",
+    "count": 0
+   },
+   {
+    "name": "Sortland",
+    "code": "1.20018.20409",
+    "count": 0
+   },
+   {
+    "name": "Steigen",
+    "code": "1.20018.20394",
+    "count": 0
+   },
+   {
+    "name": "Sømna",
+    "code": "1.20018.20370",
+    "count": 0
+   },
+   {
+    "name": "Sørfold",
+    "code": "1.20018.20393",
+    "count": 0
+   },
+   {
+    "name": "Træna",
+    "code": "1.20018.20385",
+    "count": 0
+   },
+   {
+    "name": "Vefsn",
+    "code": "1.20018.20377",
+    "count": 66
+   },
+   {
+    "name": "Vega",
+    "code": "1.20018.20372",
+    "count": 0
+   },
+   {
+    "name": "Vestvågøy",
+    "code": "1.20018.20404",
+    "count": 74
+   },
+   {
+    "name": "Vevelstad",
+    "code": "1.20018.20373",
+    "count": 0
+   },
+   {
+    "name": "Vågan",
+    "code": "1.20018.20405",
+    "count": 0
+   },
+   {
+    "name": "Værøy",
+    "code": "1.20018.20402",
+    "count": 0
+   },
+   {
+    "name": "Øksnes",
+    "code": "1.20018.20408",
+    "count": 0
+   }
+  ]
+ },
+ {
+  "name": "Oslo",
+  "code": "0.20061",
+  "count": 5435,
+  "children": [
+   {
+    "name": "Bjerke",
+    "code": "1.20061.20528",
+    "count": 725
+   },
+   {
+    "name": "Bygdøy - Frogner",
+    "code": "1.20061.20507",
+    "count": 316
+   },
+   {
+    "name": "Bøler",
+    "code": "1.20061.20519",
+    "count": 0
+   },
+   {
+    "name": "Ekeberg - Bekkelaget",
+    "code": "1.20061.20515",
+    "count": 0
+   },
+   {
+    "name": "Furuset",
+    "code": "1.20061.20524",
+    "count": 197
+   },
+   {
+    "name": "Gamle Oslo",
+    "code": "1.20061.20512",
+    "count": 600
+   },
+   {
+    "name": "Grefsen - Kjelsås",
+    "code": "1.20061.20529",
+    "count": 0
+   },
+   {
+    "name": "Grorud",
+    "code": "1.20061.20527",
+    "count": 124
+   },
+   {
+    "name": "Grünerløkka - Sofienberg",
+    "code": "1.20061.20511",
+    "count": 573
+   },
+   {
+    "name": "Hellerud",
+    "code": "1.20061.20523",
+    "count": 0
+   },
+   {
+    "name": "Helsfyr - Sinsen",
+    "code": "1.20061.20522",
+    "count": 298
+   },
+   {
+    "name": "Lambertseter",
+    "code": "1.20061.20518",
+    "count": 0
+   },
+   {
+    "name": "Manglerud",
+    "code": "1.20061.20520",
+    "count": 57
+   },
+   {
+    "name": "Marka",
+    "code": "1.20061.20514",
+    "count": 0
+   },
+   {
+    "name": "Nordstrand",
+    "code": "1.20061.20516",
+    "count": 121
+   },
+   {
+    "name": "Romsås",
+    "code": "1.20061.20526",
+    "count": 0
+   },
+   {
+    "name": "Røa",
+    "code": "1.20061.20532",
+    "count": 0
+   },
+   {
+    "name": "Sagene - Torshov",
+    "code": "1.20061.20510",
+    "count": 485
+   },
+   {
+    "name": "Sentrum",
+    "code": "1.20061.20513",
+    "count": 0
+   },
+   {
+    "name": "Sogn",
+    "code": "1.20061.20530",
+    "count": 0
+   },
+   {
+    "name": "St.Hanshaugen - Ullevål",
+    "code": "1.20061.20509",
+    "count": 294
+   },
+   {
+    "name": "Stovner",
+    "code": "1.20061.20525",
+    "count": 130
+   },
+   {
+    "name": "Søndre Nordstrand",
+    "code": "1.20061.20517",
+    "count": 108
+   },
+   {
+    "name": "Ullern",
+    "code": "1.20061.20533",
+    "count": 285
+   },
+   {
+    "name": "Uranienborg - Majorstuen",
+    "code": "1.20061.20508",
+    "count": 397
+   },
+   {
+    "name": "Vinderen",
+    "code": "1.20061.20531",
+    "count": 164
+   },
+   {
+    "name": "Østensjø",
+    "code": "1.20061.20521",
+    "count": 0
+   }
+  ]
+ },
+ {
+  "name": "Rogaland",
+  "code": "0.20012",
+  "count": 3053,
+  "children": [
+   {
+    "name": "Bjerkreim",
+    "code": "1.20012.20200",
+    "count": 0
+   },
+   {
+    "name": "Bokn",
+    "code": "1.20012.20215",
+    "count": 0
+   },
+   {
+    "name": "Eigersund",
+    "code": "1.20012.20194",
+    "count": 129
+   },
+   {
+    "name": "Gjesdal",
+    "code": "1.20012.20204",
+    "count": 24
+   },
+   {
+    "name": "Haugesund",
+    "code": "1.20012.20197",
+    "count": 185
+   },
+   {
+    "name": "Hjelmeland",
+    "code": "1.20012.20209",
+    "count": 0
+   },
+   {
+    "name": "Hå",
+    "code": "1.20012.20201",
+    "count": 0
+   },
+   {
+    "name": "Karmøy",
+    "code": "1.20012.20217",
+    "count": 126
+   },
+   {
+    "name": "Klepp",
+    "code": "1.20012.20202",
+    "count": 141
+   },
+   {
+    "name": "Kvitsøy",
+    "code": "1.20012.20214",
+    "count": 0
+   },
+   {
+    "name": "Lund",
+    "code": "1.20012.20199",
+    "count": 0
+   },
+   {
+    "name": "Randaberg",
+    "code": "1.20012.20206",
+    "count": 76
+   },
+   {
+    "name": "Sandnes",
+    "code": "1.20012.20195",
+    "count": 519
+   },
+   {
+    "name": "Sauda",
+    "code": "1.20012.20211",
+    "count": 21
+   },
+   {
+    "name": "Sokndal",
+    "code": "1.20012.20198",
+    "count": 15
+   },
+   {
+    "name": "Sola",
+    "code": "1.20012.20205",
+    "count": 128
+   },
+   {
+    "name": "Stavanger",
+    "code": "1.20012.20196",
+    "count": 1219,
+    "children": [
+     {
+      "name": "Bjergsted/Byhaugen/ Kalh/Kampen",
+      "code": "2.20012.20196.20714",
+      "count": 0
+     },
+     {
+      "name": "Byøyer",
+      "code": "2.20012.20196.20715",
+      "count": 0
+     },
+     {
+      "name": "Eiganes/Stokka/Sandal",
+      "code": "2.20012.20196.20716",
+      "count": 0
+     },
+     {
+      "name": "Finnøy",
+      "code": "2.20012.20196.20733",
+      "count": 0
+     },
+     {
+      "name": "Forus/Godeset",
+      "code": "2.20012.20196.20718",
+      "count": 0
+     },
+     {
+      "name": "Gausel",
+      "code": "2.20012.20196.20719",
+      "count": 27
+     },
+     {
+      "name": "Hinna",
+      "code": "2.20012.20196.20720",
+      "count": 238
+     },
+     {
+      "name": "Hundvåg/Byøyer",
+      "code": "2.20012.20196.20721",
+      "count": 0
+     },
+     {
+      "name": "Kvernevik",
+      "code": "2.20012.20196.20722",
+      "count": 0
+     },
+     {
+      "name": "Madlamark/Gosen/Granneslia",
+      "code": "2.20012.20196.20723",
+      "count": 82
+     },
+     {
+      "name": "Madlasandnes/Hafrsfjord/Sunde",
+      "code": "2.20012.20196.20724",
+      "count": 44
+     },
+     {
+      "name": "Rennesøy",
+      "code": "2.20012.20196.20732",
+      "count": 0
+     },
+     {
+      "name": "Stavanger Sentrum",
+      "code": "2.20012.20196.20538",
+      "count": 0
+     },
+     {
+      "name": "Stavanger Sentrum/Vestre platå",
+      "code": "2.20012.20196.20712",
+      "count": 0
+     },
+     {
+      "name": "Stavanger Øst",
+      "code": "2.20012.20196.20713",
+      "count": 0
+     },
+     {
+      "name": "Storhaug vest",
+      "code": "2.20012.20196.20725",
+      "count": 0
+     },
+     {
+      "name": "Tasta/Vardenes/ Dusavik",
+      "code": "2.20012.20196.20726",
+      "count": 0
+     },
+     {
+      "name": "Tjensvoll/Ullandhaug",
+      "code": "2.20012.20196.20727",
+      "count": 0
+     },
+     {
+      "name": "Vaulen",
+      "code": "2.20012.20196.20728",
+      "count": 0
+     },
+     {
+      "name": "Våland/Bekkefaret",
+      "code": "2.20012.20196.20729",
+      "count": 0
+     },
+     {
+      "name": "Åsen/Hillevåg/Auglend",
+      "code": "2.20012.20196.20730",
+      "count": 271
+     }
+    ]
+   },
+   {
+    "name": "Strand",
+    "code": "1.20012.20208",
+    "count": 0
+   },
+   {
+    "name": "Suldal",
+    "code": "1.20012.20210",
+    "count": 0
+   },
+   {
+    "name": "Time",
+    "code": "1.20012.20203",
+    "count": 152
+   },
+   {
+    "name": "Tysvær",
+    "code": "1.20012.20216",
+    "count": 0
+   },
+   {
+    "name": "Utsira",
+    "code": "1.20012.20218",
+    "count": 0
+   },
+   {
+    "name": "Vindafjord",
+    "code": "1.20012.20219",
+    "count": 42
+   }
+  ]
+ },
+ {
+  "name": "Svalbard",
+  "code": "0.20506",
+  "count": 0,
+  "children": []
+ },
+ {
+  "name": "Telemark",
+  "code": "0.20009",
+  "count": 907,
+  "children": [
+   {
+    "name": "Bamble",
+    "code": "1.20009.20150",
+    "count": 61
+   },
+   {
+    "name": "Drangedal",
+    "code": "1.20009.20152",
+    "count": 0
+   },
+   {
+    "name": "Fyresdal",
+    "code": "1.20009.20161",
+    "count": 0
+   },
+   {
+    "name": "Hjartdal",
+    "code": "1.20009.20157",
+    "count": 0
+   },
+   {
+    "name": "Kragerø",
+    "code": "1.20009.20151",
+    "count": 0
+   },
+   {
+    "name": "Kviteseid",
+    "code": "1.20009.20159",
+    "count": 0
+   },
+   {
+    "name": "Midt-Telemark",
+    "code": "1.20009.22106",
+    "count": 47
+   },
+   {
+    "name": "Nissedal",
+    "code": "1.20009.20160",
+    "count": 0
+   },
+   {
+    "name": "Nome",
+    "code": "1.20009.20153",
+    "count": 0
+   },
+   {
+    "name": "Notodden",
+    "code": "1.20009.20148",
+    "count": 41
+   },
+   {
+    "name": "Porsgrunn",
+    "code": "1.20009.20146",
+    "count": 190
+   },
+   {
+    "name": "Seljord",
+    "code": "1.20009.20158",
+    "count": 0
+   },
+   {
+    "name": "Siljan",
+    "code": "1.20009.20149",
+    "count": 0
+   },
+   {
+    "name": "Skien",
+    "code": "1.20009.20147",
+    "count": 314
+   },
+   {
+    "name": "Tinn",
+    "code": "1.20009.20156",
+    "count": 0
+   },
+   {
+    "name": "Tokke",
+    "code": "1.20009.20162",
+    "count": 0
+   },
+   {
+    "name": "Vinje",
+    "code": "1.20009.20163",
+    "count": 33
+   }
+  ]
+ },
+ {
+  "name": "Troms",
+  "code": "0.20019",
+  "count": 772,
+  "children": [
+   {
+    "name": "Balsfjord",
+    "code": "1.20019.20429",
+    "count": 19
+   },
+   {
+    "name": "Bardu",
+    "code": "1.20019.20420",
+    "count": 0
+   },
+   {
+    "name": "Dyrøy",
+    "code": "1.20019.20424",
+    "count": 0
+   },
+   {
+    "name": "Gratangen",
+    "code": "1.20019.20418",
+    "count": 0
+   },
+   {
+    "name": "Harstad",
+    "code": "1.20019.20412",
+    "count": 144
+   },
+   {
+    "name": "Ibestad",
+    "code": "1.20019.20417",
+    "count": 0
+   },
+   {
+    "name": "Karlsøy",
+    "code": "1.20019.20430",
+    "count": 0
+   },
+   {
+    "name": "Kvæfjord",
+    "code": "1.20019.20414",
+    "count": 0
+   },
+   {
+    "name": "Kvænangen",
+    "code": "1.20019.20436",
+    "count": 0
+   },
+   {
+    "name": "Kåfjord",
+    "code": "1.20019.20433",
+    "count": 0
+   },
+   {
+    "name": "Lavangen",
+    "code": "1.20019.20419",
+    "count": 0
+   },
+   {
+    "name": "Lyngen",
+    "code": "1.20019.20431",
+    "count": 0
+   },
+   {
+    "name": "Målselv",
+    "code": "1.20019.20422",
+    "count": 0
+   },
+   {
+    "name": "Nordreisa",
+    "code": "1.20019.20435",
+    "count": 0
+   },
+   {
+    "name": "Salangen",
+    "code": "1.20019.20421",
+    "count": 0
+   },
+   {
+    "name": "Senja",
+    "code": "1.20019.22115",
+    "count": 0
+   },
+   {
+    "name": "Skjervøy",
+    "code": "1.20019.20434",
+    "count": 0
+   },
+   {
+    "name": "Storfjord",
+    "code": "1.20019.20432",
+    "count": 0
+   },
+   {
+    "name": "Sørreisa",
+    "code": "1.20019.20423",
+    "count": 0
+   },
+   {
+    "name": "Tjeldsund",
+    "code": "1.20019.20398",
+    "count": 0
+   },
+   {
+    "name": "Tromsø",
+    "code": "1.20019.20413",
+    "count": 388,
+    "children": [
+     {
+      "name": "Kvaløya",
+      "code": "2.20019.20413.20815",
+      "count": 0
+     },
+     {
+      "name": "Tromsdalen/Tomasjord/Kroken/Ramfjord",
+      "code": "2.20019.20413.20814",
+      "count": 117
+     },
+     {
+      "name": "Tromsøya, Midten",
+      "code": "2.20019.20413.20817",
+      "count": 0
+     },
+     {
+      "name": "Tromsøya, Nord",
+      "code": "2.20019.20413.20816",
+      "count": 56
+     },
+     {
+      "name": "Tromsøya, Sør",
+      "code": "2.20019.20413.20818",
+      "count": 0
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Trøndelag",
+  "code": "0.20016",
+  "count": 4506,
+  "children": [
+   {
+    "name": "Flatanger",
+    "code": "1.20016.20363",
+    "count": 0
+   },
+   {
+    "name": "Frosta",
+    "code": "1.20016.20347",
+    "count": 18
+   },
+   {
+    "name": "Frøya",
+    "code": "1.20016.20322",
+    "count": 0
+   },
+   {
+    "name": "Grong",
+    "code": "1.20016.20359",
+    "count": 0
+   },
+   {
+    "name": "Heim",
+    "code": "1.20016.22112",
+    "count": 0
+   },
+   {
+    "name": "Hitra",
+    "code": "1.20016.20321",
+    "count": 53
+   },
+   {
+    "name": "Holtålen",
+    "code": "1.20016.20335",
+    "count": 0
+   },
+   {
+    "name": "Høylandet",
+    "code": "1.20016.20360",
+    "count": 0
+   },
+   {
+    "name": "Inderøy",
+    "code": "1.20016.20354",
+    "count": 31
+   },
+   {
+    "name": "Indre Fosen",
+    "code": "1.20016.20325",
+    "count": 91
+   },
+   {
+    "name": "Leka",
+    "code": "1.20016.20366",
+    "count": 0
+   },
+   {
+    "name": "Levanger",
+    "code": "1.20016.20349",
+    "count": 167
+   },
+   {
+    "name": "Lierne",
+    "code": "1.20016.20356",
+    "count": 0
+   },
+   {
+    "name": "Malvik",
+    "code": "1.20016.20340",
+    "count": 0
+   },
+   {
+    "name": "Melhus",
+    "code": "1.20016.20337",
+    "count": 122
+   },
+   {
+    "name": "Meråker",
+    "code": "1.20016.20345",
+    "count": 0
+   },
+   {
+    "name": "Midtre Gauldal",
+    "code": "1.20016.20336",
+    "count": 23
+   },
+   {
+    "name": "Namsos",
+    "code": "1.20016.20344",
+    "count": 79
+   },
+   {
+    "name": "Namsskogan",
+    "code": "1.20016.20358",
+    "count": 0
+   },
+   {
+    "name": "Nærøysund",
+    "code": "1.20016.22114",
+    "count": 0
+   },
+   {
+    "name": "Oppdal",
+    "code": "1.20016.20330",
+    "count": 95
+   },
+   {
+    "name": "Orkland",
+    "code": "1.20016.22113",
+    "count": 127
+   },
+   {
+    "name": "Osen",
+    "code": "1.20016.20329",
+    "count": 0
+   },
+   {
+    "name": "Overhalla",
+    "code": "1.20016.20361",
+    "count": 0
+   },
+   {
+    "name": "Rennebu",
+    "code": "1.20016.20331",
+    "count": 0
+   },
+   {
+    "name": "Rindal",
+    "code": "1.20016.20313",
+    "count": 0
+   },
+   {
+    "name": "Røros",
+    "code": "1.20016.20334",
+    "count": 64
+   },
+   {
+    "name": "Røyrvik",
+    "code": "1.20016.20357",
+    "count": 0
+   },
+   {
+    "name": "Selbu",
+    "code": "1.20016.20341",
+    "count": 0
+   },
+   {
+    "name": "Skaun",
+    "code": "1.20016.20338",
+    "count": 0
+   },
+   {
+    "name": "Snåsa",
+    "code": "1.20016.20355",
+    "count": 0
+   },
+   {
+    "name": "Steinkjer",
+    "code": "1.20016.20343",
+    "count": 159
+   },
+   {
+    "name": "Stjørdal",
+    "code": "1.20016.20346",
+    "count": 0
+   },
+   {
+    "name": "Trondheim",
+    "code": "1.20016.20318",
+    "count": 2681,
+    "children": [
+     {
+      "name": "Klæbu",
+      "code": "2.20016.20318.20731",
+      "count": 113
+     },
+     {
+      "name": "Trondheim Sentrum",
+      "code": "2.20016.20318.20505",
+      "count": 468
+     },
+     {
+      "name": "Trondheim Sør",
+      "code": "2.20016.20318.20502",
+      "count": 288
+     },
+     {
+      "name": "Trondheim Vest",
+      "code": "2.20016.20318.20501",
+      "count": 240
+     },
+     {
+      "name": "Trondheim Øst",
+      "code": "2.20016.20318.20504",
+      "count": 1723
+     }
+    ]
+   },
+   {
+    "name": "Tydal",
+    "code": "1.20016.20342",
+    "count": 0
+   },
+   {
+    "name": "Verdal",
+    "code": "1.20016.20350",
+    "count": 0
+   },
+   {
+    "name": "Åfjord",
+    "code": "1.20016.20327",
+    "count": 0
+   },
+   {
+    "name": "Ørland",
+    "code": "1.20016.20323",
+    "count": 72
+   }
+  ]
+ },
+ {
+  "name": "Vestfold",
+  "code": "0.20008",
+  "count": 2316,
+  "children": [
+   {
+    "name": "Færder",
+    "code": "1.20008.20143",
+    "count": 270
+   },
+   {
+    "name": "Holmestrand",
+    "code": "1.20008.20132",
+    "count": 302
+   },
+   {
+    "name": "Horten",
+    "code": "1.20008.20131",
+    "count": 278
+   },
+   {
+    "name": "Larvik",
+    "code": "1.20008.20135",
+    "count": 440
+   },
+   {
+    "name": "Sandefjord",
+    "code": "1.20008.20134",
+    "count": 525
+   },
+   {
+    "name": "Tønsberg",
+    "code": "1.20008.20133",
+    "count": 536
+   }
+  ]
+ },
+ {
+  "name": "Vestland",
+  "code": "0.22046",
+  "count": 3134,
+  "children": [
+   {
+    "name": "Alver",
+    "code": "1.22046.22109",
+    "count": 0,
+    "children": [
+     {
+      "name": "Lindås",
+      "code": "2.22046.22109.23026",
+      "count": 55
+     },
+     {
+      "name": "Meland",
+      "code": "2.22046.22109.23024",
+      "count": 0
+     },
+     {
+      "name": "Radøy",
+      "code": "2.22046.22109.23025",
+      "count": 0
+     }
+    ]
+   },
+   {
+    "name": "Askvoll",
+    "code": "1.22046.20267",
+    "count": 0
+   },
+   {
+    "name": "Askøy",
+    "code": "1.22046.20243",
+    "count": 177
+   },
+   {
+    "name": "Aurland",
+    "code": "1.22046.20263",
+    "count": 0
+   },
+   {
+    "name": "Austevoll",
+    "code": "1.22046.20240",
+    "count": 49
+   },
+   {
+    "name": "Austrheim",
+    "code": "1.22046.20251",
+    "count": 0
+   },
+   {
+    "name": "Bergen",
+    "code": "1.22046.20220",
+    "count": 1341,
+    "children": [
+     {
+      "name": "Arna",
+      "code": "2.22046.20220.20537",
+      "count": 0
+     },
+     {
+      "name": "Bergen Sentrum",
+      "code": "2.22046.20220.20465",
+      "count": 640
+     },
+     {
+      "name": "Bergen Vest",
+      "code": "2.22046.20220.20479",
+      "count": 67
+     },
+     {
+      "name": "Fana",
+      "code": "2.22046.20220.20473",
+      "count": 415
+     },
+     {
+      "name": "Fyllingsdalen",
+      "code": "2.22046.20220.20475",
+      "count": 94
+     },
+     {
+      "name": "Landås",
+      "code": "2.22046.20220.20471",
+      "count": 0
+     },
+     {
+      "name": "Åsane",
+      "code": "2.22046.20220.20470",
+      "count": 81
+     }
+    ]
+   },
+   {
+    "name": "Bjørnafjorden",
+    "code": "1.22046.22108",
+    "count": 186
+   },
+   {
+    "name": "Bremanger",
+    "code": "1.22046.20273",
+    "count": 0
+   },
+   {
+    "name": "Bømlo",
+    "code": "1.22046.20224",
+    "count": 115
+   },
+   {
+    "name": "Eidfjord",
+    "code": "1.22046.20232",
+    "count": 0
+   },
+   {
+    "name": "Etne",
+    "code": "1.22046.20221",
+    "count": 0
+   },
+   {
+    "name": "Fedje",
+    "code": "1.22046.20252",
+    "count": 0
+   },
+   {
+    "name": "Fitjar",
+    "code": "1.22046.20226",
+    "count": 0
+   },
+   {
+    "name": "Fjaler",
+    "code": "1.22046.20268",
+    "count": 12
+   },
+   {
+    "name": "Gloppen",
+    "code": "1.22046.20278",
+    "count": 16
+   },
+   {
+    "name": "Gulen",
+    "code": "1.22046.20255",
+    "count": 0
+   },
+   {
+    "name": "Hyllestad",
+    "code": "1.22046.20257",
+    "count": 0
+   },
+   {
+    "name": "Høyanger",
+    "code": "1.22046.20258",
+    "count": 14
+   },
+   {
+    "name": "Kinn",
+    "code": "1.22046.22107",
+    "count": 103,
+    "children": [
+     {
+      "name": "Flora",
+      "code": "2.22046.22107.23022",
+      "count": 63
+     },
+     {
+      "name": "Vågsøy",
+      "code": "2.22046.22107.23023",
+      "count": 40
+     }
+    ]
+   },
+   {
+    "name": "Kvam",
+    "code": "1.22046.20236",
+    "count": 0
+   },
+   {
+    "name": "Kvinnherad",
+    "code": "1.22046.20228",
+    "count": 45
+   },
+   {
+    "name": "Luster",
+    "code": "1.22046.20266",
+    "count": 0
+   },
+   {
+    "name": "Lærdal",
+    "code": "1.22046.20264",
+    "count": 0
+   },
+   {
+    "name": "Masfjorden",
+    "code": "1.22046.20253",
+    "count": 0
+   },
+   {
+    "name": "Modalen",
+    "code": "1.22046.20245",
+    "count": 0
+   },
+   {
+    "name": "Osterøy",
+    "code": "1.22046.20246",
+    "count": 0
+   },
+   {
+    "name": "Samnanger",
+    "code": "1.22046.20238",
+    "count": 0
+   },
+   {
+    "name": "Sogndal",
+    "code": "1.22046.20262",
+    "count": 0
+   },
+   {
+    "name": "Solund",
+    "code": "1.22046.20256",
+    "count": 0
+   },
+   {
+    "name": "Stad",
+    "code": "1.22046.22111",
+    "count": 58
+   },
+   {
+    "name": "Stord",
+    "code": "1.22046.20225",
+    "count": 0
+   },
+   {
+    "name": "Stryn",
+    "code": "1.22046.20279",
+    "count": 32
+   },
+   {
+    "name": "Sunnfjord",
+    "code": "1.22046.22110",
+    "count": 184
+   },
+   {
+    "name": "Sveio",
+    "code": "1.22046.20223",
+    "count": 20
+   },
+   {
+    "name": "Tysnes",
+    "code": "1.22046.20227",
+    "count": 13
+   },
+   {
+    "name": "Ullensvang",
+    "code": "1.22046.20231",
+    "count": 0
+   },
+   {
+    "name": "Ulvik",
+    "code": "1.22046.20233",
+    "count": 0
+   },
+   {
+    "name": "Vaksdal",
+    "code": "1.22046.20244",
+    "count": 0
+   },
+   {
+    "name": "Vik",
+    "code": "1.22046.20259",
+    "count": 0
+   },
+   {
+    "name": "Voss",
+    "code": "1.22046.20235",
+    "count": 0
+   },
+   {
+    "name": "Årdal",
+    "code": "1.22046.20265",
+    "count": 38
+   },
+   {
+    "name": "Øygarden",
+    "code": "1.22046.20248",
+    "count": 199
+   }
+  ]
+ },
+ {
+  "name": "Østfold",
+  "code": "0.20002",
+  "count": 2879,
+  "children": [
+   {
+    "name": "Aremark",
+    "code": "1.20002.20026",
+    "count": 11
+   },
+   {
+    "name": "Fredrikstad",
+    "code": "1.20002.20024",
+    "count": 896
+   },
+   {
+    "name": "Halden",
+    "code": "1.20002.20021",
+    "count": 220
+   },
+   {
+    "name": "Hvaler",
+    "code": "1.20002.20025",
+    "count": 75
+   },
+   {
+    "name": "Indre Østfold",
+    "code": "1.20002.22103",
+    "count": 325,
+    "children": [
+     {
+      "name": "Askim",
+      "code": "2.20002.22103.23011",
+      "count": 134
+     },
+     {
+      "name": "Eidsberg",
+      "code": "2.20002.22103.23012",
+      "count": 89
+     },
+     {
+      "name": "Hobøl",
+      "code": "2.20002.22103.23013",
+      "count": 0
+     },
+     {
+      "name": "Spydeberg",
+      "code": "2.20002.22103.23010",
+      "count": 29
+     },
+     {
+      "name": "Trøgstad",
+      "code": "2.20002.22103.23009",
+      "count": 25
+     }
+    ]
+   },
+   {
+    "name": "Marker",
+    "code": "1.20002.20027",
+    "count": 37
+   },
+   {
+    "name": "Moss",
+    "code": "1.20002.20022",
+    "count": 542
+   },
+   {
+    "name": "Rakkestad",
+    "code": "1.20002.20034",
+    "count": 0
+   },
+   {
+    "name": "Råde",
+    "code": "1.20002.20035",
+    "count": 88
+   },
+   {
+    "name": "Sarpsborg",
+    "code": "1.20002.20023",
+    "count": 576
+   },
+   {
+    "name": "Skiptvet",
+    "code": "1.20002.20033",
+    "count": 22
+   },
+   {
+    "name": "Våler (Østfold)",
+    "code": "1.20002.20037",
+    "count": 54
+   }
+  ]
+ }
+]
