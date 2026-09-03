@@ -21,7 +21,7 @@ on:
     inputs:
       enrich_limit:
         description: 'Hvor mange annonser som skal berikes med detaljdata'
-        default: '400'
+        default: '1200'
       max_municipalities:
         description: 'Begrens antall kommuner (tom = alle). Nyttig for en billig testkjøring.'
         default: ''
@@ -38,9 +38,9 @@ jobs:
     timeout-minutes: 50
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: '22'
 

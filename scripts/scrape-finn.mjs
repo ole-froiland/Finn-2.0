@@ -196,6 +196,7 @@ async function main() {
           ...listing,
           // Carry forward both the first-seen date and any enrichment we have.
           firstSeen: seen?.firstSeen ?? listing.firstSeen,
+          enrichedAt: seen?.enrichedAt ?? null,
           energyLabel: seen?.energyLabel ?? null,
           facilities: seen?.facilities ?? null,
           floor: seen?.floor ?? null,
@@ -243,7 +244,7 @@ async function main() {
     finnReportedTotal: scoped
       ? previousMeta.finnReportedTotal
       : targets.reduce((sum, target) => sum + target.expectedHits, 0),
-    enriched: listings.filter((listing) => listing.energyLabel !== null).length,
+    enriched: listings.filter((listing) => Boolean(listing.enrichedAt)).length,
     source: 'finn.no/realestate/homes',
   };
 

@@ -36,7 +36,9 @@ function options(argv) {
       }),
   );
   return {
-    limit: Number(flags.get('limit') ?? 500),
+    // Four runs a day at this size works through 26 000 ads in under a week,
+    // after which it only has to keep up with newly published ones.
+    limit: Number(flags.get('limit') ?? 1200),
     concurrency: Number(flags.get('concurrency') ?? 3),
     delay: Number(flags.get('delay') ?? 350),
     refresh: flags.get('refresh') === 'true',
@@ -49,16 +51,18 @@ const log = (message) => process.stdout.write(`${message}\n`);
 async function main() {
   const config = options(process.argv.slice(2));
 
+  const now = new Date().toISOString();
   const listings = JSON.parse(readFileSync(join(DATA, 'listings.json'), 'utf8'));
   const meta = JSON.parse(readFileSync(join(DATA, 'meta.json'), 'utf8'));
 
   // Newest ads first: those are the ones a visitor is most likely to filter on.
   const pending = listings
-    .filter((listing) => config.refresh || listing.energyLabel === null)
+    .filter((listing) => config.refresh || !listing.enrichedAt)
     .sort((a, b) => Number(b.id) - Number(a.id))
     .slice(0, config.limit);
 
-  log(`Beriker ${pending.length} av ${listings.length} annonser.`);
+  const already = listings.filter((listing) => listing.enrichedAt).length;
+  log(`Beriker ${pending.length} annonser. Ferdig fra før: ${already}/${listings.length}.`);
 
   const byId = new Map(listings.map((listing) => [listing.id, listing]));
   let done = 0;
@@ -72,7 +76,7 @@ async function main() {
         return;
       }
       const details = parseAdPage(html);
-      Object.assign(byId.get(listing.id), details);
+      Object.assign(byId.get(listing.id), details, { enrichedAt: now });
       done += 1;
       if (config.verbose) log(`  ${listing.id} → ${JSON.stringify(details)}`);
       else if (done % 25 === 0) log(`  ${done}/${pending.length}`);
@@ -84,7 +88,7 @@ async function main() {
   });
 
   const enriched = [...byId.values()];
-  meta.enriched = enriched.filter((listing) => listing.energyLabel !== null).length;
+  meta.enriched = enriched.filter((listing) => Boolean(listing.enrichedAt)).length;
 
   writeFileSync(join(DATA, 'listings.json'), JSON.stringify(enriched));
   writeFileSync(join(DATA, 'meta.json'), `${JSON.stringify(meta, null, 2)}\n`);

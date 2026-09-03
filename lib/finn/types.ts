@@ -51,6 +51,13 @@ export type Listing = {
   firstSeen: string;
 
   // --- Detail-page enrichment. Null until the enrichment pass has run. ---
+  /**
+   * When the ad's own page was last read. This, not any single field, is what
+   * marks an ad as done: plenty of ads genuinely have no energy rating, and
+   * keying progress off a field that is legitimately absent would make the
+   * incremental pass fetch the same ads forever.
+   */
+  enrichedAt: string | null;
   energyLabel: string | null;
   facilities: string[] | null;
   floor: number | null;
