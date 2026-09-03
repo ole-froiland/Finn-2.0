@@ -7,6 +7,10 @@
  * stays under the cap and, as a bonus, tells us which county and municipality
  * every ad belongs to — which the result cards themselves never say.
  *
+ * A few municipalities still hold more than a single query can page through
+ * (Trondheim is over the line today). Those are split into price bands, which
+ * partition cleanly since every ad has exactly one asking price.
+ *
  * Usage:
  *   node scripts/scrape-finn.mjs                       # everything
  *   node scripts/scrape-finn.mjs --county=Oslo         # one county
@@ -25,8 +29,29 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DATA = join(ROOT, 'data');
 const SEARCH = 'https://www.finn.no/realestate/homes/search.html';
 
-// FINN stops paginating here; the per-municipality walk keeps us well clear.
+// FINN stops paginating here, so one query can never yield more than
+// MAX_PAGES * 50 ads however many it claims to have.
 const MAX_PAGES = 50;
+const PAGE_CAP = MAX_PAGES * 50;
+
+/**
+ * A handful of municipalities — Trondheim, most obviously — hold more ads than
+ * a single query can page through. Those get split into price bands, which
+ * partition the ads cleanly because every ad has exactly one asking price.
+ */
+const PRICE_BANDS = [
+  [null, 1_500_000],
+  [1_500_000, 2_500_000],
+  [2_500_000, 3_500_000],
+  [3_500_000, 4_500_000],
+  [4_500_000, 6_000_000],
+  [6_000_000, 8_000_000],
+  [8_000_000, 12_000_000],
+  [12_000_000, null],
+];
+
+const bandParams = ([from, to]) =>
+  `${from === null ? '' : `&price_from=${from}`}${to === null ? '' : `&price_to=${to}`}`;
 
 function options(argv) {
   const flags = new Map(
@@ -67,14 +92,14 @@ function municipalities(locations, countyFilter) {
   return targets.sort((a, b) => b.expected - a.expected);
 }
 
-async function harvestMunicipality(target, now, delay) {
-  const found = new Map();
+/** Walks one query to the end of its pages, adding what it finds to `found`. */
+async function harvestQuery(target, extra, now, delay, found) {
   let reported = null;
 
   for (let page = 1; page <= MAX_PAGES; page += 1) {
     const url =
       `${SEARCH}?location=${encodeURIComponent(target.municipalityCode)}` +
-      `&sort=PUBLISHED_DESC${page > 1 ? `&page=${page}` : ''}`;
+      `&sort=PUBLISHED_DESC${extra}${page > 1 ? `&page=${page}` : ''}`;
 
     const html = await get(url);
     if (!html) break;
@@ -92,12 +117,32 @@ async function harvestMunicipality(target, now, delay) {
 
     // A page that adds nothing new means we have wrapped around the end.
     if (listings.length === 0 || fresh === 0) break;
-    if (reported !== null && found.size >= reported) break;
+    if (reported !== null && page * 50 >= reported) break;
 
     await sleep(delay);
   }
 
-  return { listings: [...found.values()], reported };
+  return reported;
+}
+
+async function harvestMunicipality(target, now, delay) {
+  const found = new Map();
+
+  // Under the cap a plain walk sees everything; over it, price bands do.
+  if (target.expected <= PAGE_CAP) {
+    const reported = await harvestQuery(target, '', now, delay, found);
+    if (reported === null || reported <= PAGE_CAP) {
+      return { listings: [...found.values()], truncated: false };
+    }
+    // FINN reported more than one query can reach after all — fall through.
+  }
+
+  for (const band of PRICE_BANDS) {
+    await harvestQuery(target, bandParams(band), now, delay, found);
+    await sleep(delay);
+  }
+
+  return { listings: [...found.values()], truncated: false, banded: true };
 }
 
 async function main() {
@@ -127,7 +172,7 @@ async function main() {
 
   await pool(targets, config.concurrency, async (target) => {
     try {
-      const { listings } = await harvestMunicipality(target, now, config.delay);
+      const { listings, banded } = await harvestMunicipality(target, now, config.delay);
       for (const listing of listings) {
         const seen = before.get(listing.id);
         collected.set(listing.id, {
@@ -146,7 +191,7 @@ async function main() {
       done += 1;
       log(
         `  [${String(done).padStart(3)}/${targets.length}] ${target.county} › ${target.municipality}: ` +
-          `${listings.length} annonser (totalt ${collected.size})`,
+          `${listings.length} annonser${banded ? ' (delt i prisbånd)' : ''} (totalt ${collected.size})`,
       );
     } catch (error) {
       failures += 1;

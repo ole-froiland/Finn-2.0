@@ -228,14 +228,30 @@ function tally(listings: Listing[], pick: (listing: Listing) => string[]): Recor
 
 const countyId = (listing: Listing) => listing.countyCode;
 
-function facetsFor(listings: Listing[], checks: Record<string, Predicate>): FacetCounts {
-  const without = (group: string): Listing[] =>
-    applyAll(
+function facetsFor(
+  listings: Listing[],
+  checks: Record<string, Predicate>,
+  matched: Listing[],
+  isActive: (group: string) => boolean,
+): FacetCounts {
+  // Dropping a group that has nothing selected changes nothing, so those
+  // groups can count straight off the matched set. Only a group the visitor
+  // has actually ticked needs its own pass over the catalogue — which turns
+  // a dozen full scans per request into one, plus one per active filter.
+  const cache = new Map<string, Listing[]>();
+  const without = (group: string): Listing[] => {
+    if (!isActive(group)) return matched;
+    const hit = cache.get(group);
+    if (hit) return hit;
+    const subset = applyAll(
       listings,
       Object.entries(checks)
         .filter(([key]) => key !== group)
         .map(([, check]) => check),
     );
+    cache.set(group, subset);
+    return subset;
+  };
 
   const facets: FacetCounts = {};
 
@@ -295,7 +311,11 @@ export function search(listings: Listing[], query: SearchQuery): SearchResult {
     total: sorted.length,
     pageNumber,
     totalPages,
-    facets: facetsFor(listings, checks),
+    facets: facetsFor(listings, checks, matched, (group) => {
+      if (group === 'published') return query.published;
+      const selection = query[group as keyof SearchQuery];
+      return Array.isArray(selection) && selection.length > 0;
+    }),
   };
 }
 

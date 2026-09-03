@@ -31,6 +31,10 @@ FINN stopper paginering rundt side 50, så scraperen går gjennom **én kommune 
 gangen** med FINNs egne stedskoder. Det holder oss under taket, og gir samtidig
 riktig fylke og kommune for hver annonse — noe søkekortene aldri oppgir selv.
 
+Noen få kommuner har flere annonser enn ett søk rekker gjennom (Trondheim ligger
+over grensen i dag). De deles automatisk i prisbånd, som partisjonerer rent
+siden hver annonse har nøyaktig én prisantydning.
+
 ```bash
 npm run scrape                              # hele landet (~380 kommuner)
 node scripts/scrape-finn.mjs --county=Oslo  # ett fylke
