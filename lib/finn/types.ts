@@ -58,6 +58,9 @@ export type Listing = {
    * incremental pass fetch the same ads forever.
    */
   enrichedAt: string | null;
+  /** Position of the property, for the map. Only known once enriched. */
+  lat: number | null;
+  lon: number | null;
   energyLabel: string | null;
   facilities: string[] | null;
   floor: number | null;

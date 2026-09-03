@@ -64,14 +64,21 @@ export const FLOORS = [
 
 export const ENERGY_LABELS = ['A', 'B', 'C', 'D', 'E', 'F', 'G'] as const;
 
-/** The sort options FINN offers, and the value each maps to in the URL. */
+/**
+ * FINN's own sort options, with FINN's own values, in FINN's own order.
+ * "Nærmest" is left out: it needs a reference point we do not ask for.
+ */
 export const SORT_OPTIONS = [
+  { value: 'AREA_PROM_DESC', label: 'Areal høy-lav' },
+  { value: 'AREA_PROM_ASC', label: 'Areal lav-høy' },
+  { value: 'PRICE_SQM_DESC', label: 'Kvmeterpris høy-lav' },
+  { value: 'PRICE_SQM_ASC', label: 'Kvmeterpris lav-høy' },
+  { value: 'RELEVANCE', label: 'Mest relevant' },
+  { value: 'PRICE_ASKING_DESC', label: 'Prisant høy-lav' },
+  { value: 'PRICE_ASKING_ASC', label: 'Prisant lav-høy' },
   { value: 'PUBLISHED_DESC', label: 'Publisert' },
-  { value: 'PRICE_ASC', label: 'Prisantydning lav-høy' },
-  { value: 'PRICE_DESC', label: 'Prisantydning høy-lav' },
-  { value: 'AREA_ASC', label: 'Areal lav-høy' },
-  { value: 'AREA_DESC', label: 'Areal høy-lav' },
-  { value: 'VIEWING_ASC', label: 'Visningsdato' },
+  { value: 'PRICE_DESC', label: 'Tot pris høy-lav' },
+  { value: 'PRICE_ASC', label: 'Tot pris lav-høy' },
 ] as const;
 
 export type SortValue = (typeof SORT_OPTIONS)[number]['value'];

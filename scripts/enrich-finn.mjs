@@ -68,6 +68,16 @@ async function main() {
   let done = 0;
   let failed = 0;
 
+  // A long pass writes as it goes. Holding everything until the end means a
+  // crash, a timeout or a Ctrl-C throws away an hour of fetching, and every ad
+  // gets fetched again on the next run.
+  const save = () => {
+    const all = [...byId.values()];
+    meta.enriched = all.filter((listing) => Boolean(listing.enrichedAt)).length;
+    writeFileSync(join(DATA, 'listings.json'), JSON.stringify(all));
+    writeFileSync(join(DATA, 'meta.json'), `${JSON.stringify(meta, null, 2)}\n`);
+  };
+
   await pool(pending, config.concurrency, async (listing) => {
     try {
       const html = await get(listing.url);
@@ -80,6 +90,7 @@ async function main() {
       done += 1;
       if (config.verbose) log(`  ${listing.id} → ${JSON.stringify(details)}`);
       else if (done % 25 === 0) log(`  ${done}/${pending.length}`);
+      if (done % 250 === 0) save();
       await sleep(config.delay);
     } catch (error) {
       failed += 1;
@@ -87,12 +98,7 @@ async function main() {
     }
   });
 
-  const enriched = [...byId.values()];
-  meta.enriched = enriched.filter((listing) => Boolean(listing.enrichedAt)).length;
-
-  writeFileSync(join(DATA, 'listings.json'), JSON.stringify(enriched));
-  writeFileSync(join(DATA, 'meta.json'), `${JSON.stringify(meta, null, 2)}\n`);
-
+  save();
   log(`\nFerdig: ${done} beriket, ${failed} feilet. Totalt beriket: ${meta.enriched}.`);
 }
 

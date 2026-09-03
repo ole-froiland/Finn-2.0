@@ -197,6 +197,8 @@ async function main() {
           // Carry forward both the first-seen date and any enrichment we have.
           firstSeen: seen?.firstSeen ?? listing.firstSeen,
           enrichedAt: seen?.enrichedAt ?? null,
+          lat: seen?.lat ?? null,
+          lon: seen?.lon ?? null,
           energyLabel: seen?.energyLabel ?? null,
           facilities: seen?.facilities ?? null,
           floor: seen?.floor ?? null,

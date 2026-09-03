@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useState, useTransition, type ReactNode } from 'react';
-import { Bell, Check, ChevronDown, ChevronRight, Search, SlidersHorizontal } from 'lucide-react';
+import { Check, ChevronDown, ChevronRight, Search, SlidersHorizontal } from 'lucide-react';
 
 import { formatNumber, viewingFacetLabel } from '@/lib/finn/format';
 import {
@@ -27,6 +27,8 @@ import {
 } from '@/lib/finn/taxonomy';
 import type { LocationNode } from '@/lib/finn/types';
 
+import { SavedSearches } from './SavedSearches';
+
 type Props = {
   query: SearchQuery;
   facets: FacetCounts;
@@ -35,9 +37,21 @@ type Props = {
   /** Shown on the mobile toggle, so the button says what it will give you. */
   total: number;
   activeCount: number;
+  /** The current search as a query string, so it can be saved verbatim. */
+  currentQueryString: string;
+  locationNames: Record<string, string>;
 };
 
-export function FilterRail({ query, facets, locations, enriched, total, activeCount }: Props) {
+export function FilterRail({
+  query,
+  facets,
+  locations,
+  enriched,
+  total,
+  activeCount,
+  currentQueryString,
+  locationNames,
+}: Props) {
   const router = useRouter();
   const [, startTransition] = useTransition();
   // Below the two-column breakpoint the filters live behind a button, the way
@@ -68,9 +82,11 @@ export function FilterRail({ query, facets, locations, enriched, total, activeCo
       </button>
 
       <div className="rail__body">
-      <button type="button" className="rail__save">
-        <Bell size={18} aria-hidden="true" /> Lagre søk
-      </button>
+      <SavedSearches
+        query={query}
+        currentQueryString={currentQueryString}
+        locationNames={locationNames}
+      />
 
       <TextFilter query={query} onSubmit={(q) => go({ ...query, q })} />
 
@@ -453,7 +469,7 @@ function TextFilter({
   return (
     <Group title="Søk i Eiendom">
       <form
-        className="header__search"
+        className="rail__search"
         onSubmit={(event) => {
           event.preventDefault();
           onSubmit(draft.trim());

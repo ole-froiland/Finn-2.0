@@ -29,6 +29,8 @@ export type SearchQuery = {
   plot_area: Range;
   sort: SortValue;
   page: number;
+  /** Results as a map rather than a list. */
+  map: boolean;
 };
 
 export const MULTI_KEYS = [
@@ -83,6 +85,7 @@ export const EMPTY_QUERY: SearchQuery = {
   plot_area: EMPTY_RANGE,
   sort: 'PUBLISHED_DESC',
   page: 1,
+  map: false,
 };
 
 /** Next hands route params in as string | string[] | undefined. */
@@ -120,6 +123,7 @@ export function parseSearchQuery(params: RawParams): SearchQuery {
     min_bedrooms: int(params.min_bedrooms),
     sort,
     page: Math.max(1, int(params.page) ?? 1),
+    map: list(params.map).length > 0,
   };
 
   for (const key of MULTI_KEYS) query[key] = list(params[key]);
@@ -144,14 +148,15 @@ export function toSearchParams(query: SearchQuery): URLSearchParams {
   }
   if (query.min_bedrooms !== null) params.set('min_bedrooms', String(query.min_bedrooms));
   if (query.sort !== 'PUBLISHED_DESC') params.set('sort', query.sort);
+  if (query.map) params.set('map', '1');
   if (query.page > 1) params.set('page', String(query.page));
   return params;
 }
 
+/** The search *is* the site, so it lives at the root. */
 export function searchHref(query: SearchQuery): string {
-  const params = toSearchParams(query);
-  const qs = params.toString();
-  return qs ? `/realestate/homes/search?${qs}` : '/realestate/homes/search';
+  const qs = toSearchParams(query).toString();
+  return qs ? `/?${qs}` : '/';
 }
 
 /** Toggle one value in a multi-select group, always returning to page 1. */

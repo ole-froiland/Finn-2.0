@@ -1,12 +1,13 @@
+/**
+ * The page carries FINN's mark, so it has to say plainly that it is not FINN.
+ * Kept to one quiet line so it states the fact without shouting over the UI.
+ */
 export function Disclaimer() {
   return (
-    <div className="disclaimer">
-      <div className="shell">
-        <p>
-          Hjemly er et uavhengig hobbyprosjekt og er ikke tilknyttet FINN.no. Annonsedata hentes fra
-          finn.no, og hver annonse lenker til originalen.
-        </p>
-      </div>
-    </div>
+    <p className="disclaimer">
+      <span className="shell">
+        Uoffisiell klone av FINN Eiendom — ikke tilknyttet FINN.no. Annonser lenker til originalen.
+      </span>
+    </p>
   );
 }

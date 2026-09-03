@@ -78,8 +78,28 @@ const FACILITY_ALIASES = {
   'Vaktmester-/vektertjeneste': ['Vaktmester', 'Vektertjeneste'],
 };
 
+/**
+ * FINN puts the ad's position in its payload as `"lat",62.3855,"lng",6.9822`
+ * and again in the static map image it renders. Reading both and agreeing on
+ * one keeps a stray number elsewhere on the page from being mistaken for a
+ * coordinate.
+ */
+function parseCoordinates(html) {
+  const fromMap = html.match(/staticmap\?lat=(-?\d+\.\d+)&(?:amp;|u0026)?lng=(-?\d+\.\d+)/);
+  const fromPayload = html.match(/\\?"lat\\?",\s*(-?\d+\.\d+),\s*\\?"lng\\?",\s*(-?\d+\.\d+)/);
+  const pair = fromMap ?? fromPayload;
+  if (!pair) return { lat: null, lon: null };
+
+  const lat = Number(pair[1]);
+  const lon = Number(pair[2]);
+  // Norway including Svalbard and Jan Mayen; anything outside is a misread.
+  if (!(lat >= 57 && lat <= 81 && lon >= -10 && lon <= 35)) return { lat: null, lon: null };
+  return { lat, lon };
+}
+
 export function parseAdPage(html) {
   const text = flatten(html);
+  const { lat, lon } = parseCoordinates(html);
 
   // "Energimerking" is followed by a grade and a colour, e.g. "C - Oransje".
   const energyRaw = labelled(text, 'Energimerking') ?? labelled(text, 'Energikarakter');
@@ -96,6 +116,8 @@ export function parseAdPage(html) {
   });
 
   return {
+    lat,
+    lon,
     energyLabel: energyMatch ? energyMatch[1] : null,
     floor: toNumber(floorRaw?.match(/^\d+/)?.[0] ?? null),
     constructionYear: (() => {

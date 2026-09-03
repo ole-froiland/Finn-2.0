@@ -168,24 +168,37 @@ const byNullableNumber = (
   return (a - b) * direction;
 };
 
+/** Kvmeterpris — asking price per square metre, FINN's own derived figure. */
+const squareMetrePrice = (listing: Listing): number | null =>
+  listing.price !== null && listing.area !== null && listing.area > 0
+    ? listing.price / listing.area
+    : null;
+
 function sortListings(listings: Listing[], sort: SearchQuery['sort']): Listing[] {
   const sorted = [...listings];
+  const by = (pick: (listing: Listing) => number | null, direction: 1 | -1) =>
+    sorted.sort((a, b) => byNullableNumber(pick(a), pick(b), direction));
+
   switch (sort) {
+    case 'PRICE_ASKING_ASC':
+      return by((l) => l.price, 1);
+    case 'PRICE_ASKING_DESC':
+      return by((l) => l.price, -1);
     case 'PRICE_ASC':
-      return sorted.sort((a, b) => byNullableNumber(a.price, b.price, 1));
+      return by((l) => l.totalPrice, 1);
     case 'PRICE_DESC':
-      return sorted.sort((a, b) => byNullableNumber(a.price, b.price, -1));
-    case 'AREA_ASC':
-      return sorted.sort((a, b) => byNullableNumber(a.area, b.area, 1));
-    case 'AREA_DESC':
-      return sorted.sort((a, b) => byNullableNumber(a.area, b.area, -1));
-    case 'VIEWING_ASC':
-      return sorted.sort((a, b) => {
-        if (a.viewingDate === b.viewingDate) return 0;
-        if (a.viewingDate === null) return 1;
-        if (b.viewingDate === null) return -1;
-        return a.viewingDate < b.viewingDate ? -1 : 1;
-      });
+      return by((l) => l.totalPrice, -1);
+    case 'AREA_PROM_ASC':
+      return by((l) => l.area, 1);
+    case 'AREA_PROM_DESC':
+      return by((l) => l.area, -1);
+    case 'PRICE_SQM_ASC':
+      return by(squareMetrePrice, 1);
+    case 'PRICE_SQM_DESC':
+      return by(squareMetrePrice, -1);
+    case 'RELEVANCE':
+      // Without a query there is nothing to be relevant to, so newest wins.
+      return by((l) => Number(l.id), -1);
     default:
       // Newest first, with the ad id as a stable tiebreaker.
       return sorted.sort((a, b) =>
@@ -203,6 +216,8 @@ export type FacetCounts = Record<string, Record<string, number>>;
 export type SearchResult = {
   /** The page of ads to render. */
   page: Listing[];
+  /** Every match, in sort order — the map needs more than one page of them. */
+  matched: Listing[];
   /** How many ads matched in total, before pagination. */
   total: number;
   pageNumber: number;
@@ -308,6 +323,7 @@ export function search(listings: Listing[], query: SearchQuery): SearchResult {
 
   return {
     page: sorted.slice(start, start + PAGE_SIZE),
+    matched: sorted,
     total: sorted.length,
     pageNumber,
     totalPages,
