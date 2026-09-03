@@ -9,7 +9,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
     "scrape": "node scripts/scrape-finn.mjs",
     "scrape:quick": "node scripts/scrape-finn.mjs --max-municipalities=25",
     "locations": "node scripts/scrape-locations.mjs",
