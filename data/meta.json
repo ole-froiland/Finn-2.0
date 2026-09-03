@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-09-03T10:11:06.357Z",
-  "total": 25,
-  "finnReportedTotal": null,
+  "updatedAt": "2026-09-03T10:33:54.826Z",
+  "total": 26739,
+  "finnReportedTotal": 33623,
   "enriched": 0,
-  "source": "finn.no/realestate/homes (seed)"
+  "source": "finn.no/realestate/homes"
 }

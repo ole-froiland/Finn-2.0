@@ -1,8 +1,14 @@
 name: Oppdater boligannonser
 
 # Harvests finn.no and commits the result, which in turn triggers a Vercel
-# deploy. Runs twice a day; the enrichment pass is capped so a single run stays
-# polite and the catalogue fills in over several days.
+# deploy.
+#
+# Every six hours. One full harvest is roughly 900 requests, so four runs a day
+# is about 3,600 — enough to stay current without leaning on someone else's
+# site harder than a hobby clone warrants. FINN's listings do not turn over
+# faster than this anyway. The enrichment pass is capped per run, so the
+# detail-page data fills in over several days and then only has to keep up
+# with newly published ads.
 #
 # Heads up: GitHub's hosted runners come from Azure IP ranges, which FINN may
 # refuse. If the scrape step starts coming back empty, run it from a machine on
@@ -10,7 +16,7 @@ name: Oppdater boligannonser
 
 on:
   schedule:
-    - cron: '17 4,16 * * *'
+    - cron: '17 */6 * * *'
   workflow_dispatch:
     inputs:
       enrich_limit:

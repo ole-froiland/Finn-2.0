@@ -84,12 +84,17 @@ function municipalities(locations, countyFilter) {
         county: county.name,
         municipalityCode: municipality.code,
         municipality: municipality.name,
-        expected: municipality.count,
+        // FINN's location payload counts *treff* (hits), which run higher than
+        // annonser (ads) because a new-build project counts once per unit.
+        // Comparing hits against the page cap therefore errs towards splitting
+        // a municipality that would in fact have fitted — harmless, and it
+        // never lets one slip through under-collected.
+        expectedHits: municipality.count,
       });
     }
   }
   // Busiest first, so a run cut short still covers the bulk of the market.
-  return targets.sort((a, b) => b.expected - a.expected);
+  return targets.sort((a, b) => b.expectedHits - a.expectedHits);
 }
 
 /** Walks one query to the end of its pages, adding what it finds to `found`. */
@@ -129,7 +134,7 @@ async function harvestMunicipality(target, now, delay) {
   const found = new Map();
 
   // Under the cap a plain walk sees everything; over it, price bands do.
-  if (target.expected <= PAGE_CAP) {
+  if (target.expectedHits <= PAGE_CAP) {
     const reported = await harvestQuery(target, '', now, delay, found);
     if (reported === null || reported <= PAGE_CAP) {
       return { listings: [...found.values()], truncated: false };
@@ -210,7 +215,7 @@ async function main() {
   const meta = {
     updatedAt: now.toISOString(),
     total: listings.length,
-    finnReportedTotal: targets.reduce((sum, target) => sum + target.expected, 0),
+    finnReportedTotal: targets.reduce((sum, target) => sum + target.expectedHits, 0),
     enriched: listings.filter((listing) => listing.energyLabel !== null).length,
     source: 'finn.no/realestate/homes',
   };
