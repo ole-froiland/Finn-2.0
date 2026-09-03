@@ -132,7 +132,11 @@ function parseCard(article, context) {
   return {
     id,
     title,
-    url: `https://www.finn.no/realestate/homes/ad.html?finnkode=${id}`,
+    // FINN files ads under three different paths — /realestate/homes/,
+    // /realestate/project/ and /realestate/projectsingle/ — and the search
+    // cards do not say which. Its own short link redirects to the right one,
+    // so it is the only form that is correct for every ad.
+    url: `https://www.finn.no/${id}`,
     image,
     agency:
       stripTags(

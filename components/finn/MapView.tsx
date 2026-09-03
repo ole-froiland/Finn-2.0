@@ -19,7 +19,8 @@ export type MapPoint = Pick<
   'id' | 'lat' | 'lon' | 'title' | 'address' | 'price' | 'area' | 'image'
 >;
 
-const adUrl = (id: string) => `https://www.finn.no/realestate/homes/ad.html?finnkode=${id}`;
+/** FINN's short link, which redirects to whichever path the ad lives under. */
+const adUrl = (id: string) => `https://www.finn.no/${id}`;
 
 /**
  * Leaflet reaches for `window` as soon as it is imported, so it is pulled in

@@ -28,7 +28,8 @@ async function viaFetch(url) {
 }
 
 async function viaCurl(url) {
-  const args = ['-sS', '--compressed', '--max-time', '45', '-w', '\n%{http_code}'];
+  // -L matters: ad links are FINN short links that redirect to the real path.
+  const args = ['-sS', '-L', '--compressed', '--max-time', '45', '-w', '\n%{http_code}'];
   for (const [key, value] of Object.entries(HEADERS)) args.push('-H', `${key}: ${value}`);
   args.push(url);
   const { stdout } = await run('curl', args, { maxBuffer: 64 * 1024 * 1024 });
