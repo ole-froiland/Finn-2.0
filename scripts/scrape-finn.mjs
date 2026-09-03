@@ -68,6 +68,7 @@ function options(argv) {
     concurrency: Number(flags.get('concurrency') ?? 4),
     delay: Number(flags.get('delay') ?? 250),
     dryRun: flags.get('dry-run') === 'true',
+    force: flags.get('force') === 'true',
   };
 }
 
@@ -171,7 +172,18 @@ async function main() {
   }
   const before = new Map(previous.map((listing) => [listing.id, listing]));
 
-  const collected = new Map();
+  let previousMeta = { finnReportedTotal: null };
+  try {
+    previousMeta = JSON.parse(readFileSync(join(DATA, 'meta.json'), 'utf8'));
+  } catch {
+    // First run; the defaults above are fine.
+  }
+
+  // A run narrowed to one county or a few municipalities is a partial refresh:
+  // it starts from what we already have and overlays the ads it re-fetches, so
+  // it updates its own slice without discarding the rest of the country.
+  const scoped = config.county !== null || Number.isFinite(config.maxMunicipalities);
+  const collected = new Map(scoped ? previous.map((listing) => [listing.id, listing]) : []);
   let done = 0;
   let failures = 0;
 
@@ -212,10 +224,25 @@ async function main() {
     return;
   }
 
+  // If FINN starts refusing us, or changes its markup, a run can "succeed"
+  // while collecting almost nothing. Overwriting a good dataset with that is
+  // far worse than skipping the update, so a sharp drop aborts instead.
+  if (previous.length > 0 && listings.length < previous.length * 0.6 && !config.force) {
+    log(
+      `\nAvbryter: ${listings.length} annonser er under 60 % av de ${previous.length} vi hadde.\n` +
+        'Datasettet er urørt. Kjør på nytt, eller bruk --force hvis nedgangen er reell.',
+    );
+    process.exit(1);
+  }
+
   const meta = {
     updatedAt: now.toISOString(),
     total: listings.length,
-    finnReportedTotal: targets.reduce((sum, target) => sum + target.expectedHits, 0),
+    // Only a full run can speak for the whole country; a scoped one keeps
+    // whatever the last full run recorded.
+    finnReportedTotal: scoped
+      ? previousMeta.finnReportedTotal
+      : targets.reduce((sum, target) => sum + target.expectedHits, 0),
     enriched: listings.filter((listing) => listing.energyLabel !== null).length,
     source: 'finn.no/realestate/homes',
   };
