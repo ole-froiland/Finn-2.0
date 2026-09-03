@@ -3,6 +3,8 @@
 En boligsøk-klone som henter ekte annonser fra FINN, lar deg filtrere med de
 samme filtrene som FINN bruker, og lenker hver annonse til originalen.
 
+**Live:** https://finn-2-0.vercel.app
+
 > Hjemly er et uavhengig hobbyprosjekt og er **ikke tilknyttet FINN.no AS**.
 > Annonsedata og bilder tilhører FINN og de respektive annonsørene.
 
@@ -51,9 +53,14 @@ søkekortene — de må hentes fra hver annonseside. Det er en egen, inkrementel
 kjøring:
 
 ```bash
-node scripts/enrich-finn.mjs --limit=20 --verbose   # sjekk parseren først
-node scripts/enrich-finn.mjs --limit=500            # så en full runde
+node scripts/enrich-finn.mjs --limit=20 --verbose   # se hva parseren finner
+node scripts/enrich-finn.mjs                        # 1200 om gangen
 ```
+
+Framdriften spores på `enrichedAt`, ikke på om et bestemt felt fikk verdi:
+mange annonser har for eksempel ingen energimerking i det hele tatt, og å måle
+på et felt som lovlig kan mangle ville fått jobben til å hente de samme
+annonsene i det uendelige.
 
 Filtrene som avhenger av disse feltene viser en merknad i grensesnittet så
 lenge ingen annonser har dataene ennå.
@@ -67,7 +74,20 @@ npm run dev
 
 ## Drift
 
-`.github/workflows/refresh-listings.yml` kjører scraperen to ganger i døgnet og
-committer endringene, noe som utløser en ny Vercel-deploy. Merk at GitHubs
-runnere kjører på Azure-IP-er som FINN kan avvise — hvis kjøringen begynner å
-komme tom tilbake, kjør `npm run scrape` lokalt og commit resultatet i stedet.
+`.github/workflows/refresh-listings.yml` kjører **hver 6. time** og committer
+endringene, noe som utløser en ny Vercel-deploy. Én høsting er ~900
+forespørsler, så fire i døgnet holder dataene ferske uten å lene seg hardt på
+FINN.
+
+Jobben er testet mot GitHubs runnere og slipper gjennom til finn.no. Den
+sjekker likevel at FINN svarer 200 før den begynner, og stopper med en tydelig
+feil framfor å skrive et tomt datasett over et godt et. Skulle det skje, kjør
+`npm run scrape` lokalt og commit resultatet i stedet.
+
+To vern mot dårlige data:
+
+- En kjøring begrenset med `--county` eller `--max-municipalities` **slår
+  sammen** med det som ligger der, i stedet for å erstatte alt. En testkjøring
+  med tre kommuner sletter altså ikke de øvrige 26 000.
+- En full kjøring som kommer tilbake med under 60 % av forrige antall avbryter
+  uten å skrive. `--force` overstyrer når nedgangen er reell.
